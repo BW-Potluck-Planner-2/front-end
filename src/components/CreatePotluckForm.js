@@ -13,6 +13,7 @@ const [ newPotLuckInfo, setNewPotLuckInfo ] = useState({
     time: "",
 })
 console.log(newPotLuckInfo, " O o o o o O O O O o o o o")
+
 const handleChange = e => {
     setNewPotLuckInfo({
         ...newPotLuckInfo,
@@ -23,10 +24,10 @@ const handleChange = e => {
 const handleSubmit = e => {
     e.preventDefault();
     axiosWithAuth()
-    .post("/newPotluck", newPotLuckInfo)
+    .post("/potluckInfo", newPotLuckInfo)
     .then(res => {
         console.log(res, "great! ! ! ! ! !  we have response")
-        props.history.push("/potluckPage")
+        props.history.push("/addItemPage")
     })
     .catch(error => {
         console.log(error, " Not error fix it and get res :-)")

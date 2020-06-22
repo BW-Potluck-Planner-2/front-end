@@ -31,7 +31,7 @@ const PotluckCard = (props) => {
                             <div key={potluck.id}>
                                 <h3>Potluck Name: {potluck.potluckName} </h3>
                                 <p>Location: {potluck.location} </p>
-                                <p> Date: {potluck.date} </p>
+                                <p>Date: {potluck.date} </p>
                                 <p>Time: {potluck.time} </p>
                             </div>
                         )})
@@ -40,4 +40,4 @@ const PotluckCard = (props) => {
         </div>
     )
 }
-export default CreatePotluckForm
+export default PotluckCard
