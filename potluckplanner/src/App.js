@@ -6,6 +6,7 @@ import loginSchema from './components/formSchemalogin';
 import signupSchema from './components/formSchemaSignup';
 import * as yup from 'yup';
 import axios from 'axios';
+import { v4 as uuid } from 'uuid';
 
 const initialLoginValues = {
   username: '',
@@ -19,7 +20,6 @@ const initialSingupValues = {
   username: '',
   email: '',
   password: '',
-  rptPassword: '',
 };
 
 const initialLoginErrors = {
@@ -33,7 +33,6 @@ const initialSingupErrors = {
   username: '',
   email: '',
   password: '',
-  rptPassword: '',
 }
 
 const initialMembers = [];
@@ -49,9 +48,9 @@ function App() {
   const [members, setMembers] = useState(initialMembers);
 
   const getMembers = () =>{
-    axios.get('')
+    axios.get('https://potluck-plann3r.herokuapp.com/')
       .then(response =>{
-        setMembers(response)
+        setMembers([...members, response.data])
       })
       .catch(error =>{
         debugger
@@ -59,9 +58,9 @@ function App() {
   };
 
   const postMember = (member) =>{
-    axios.post('', member)
+    axios.post('https://potluck-plann3r.herokuapp.com/', member)
       .then(response =>{
-        setMembers([...members, response])
+        setMembers([...members, response.data])
       })
       .catch(error =>{
         debugger
@@ -122,7 +121,7 @@ function App() {
   };
 
   const signupSubmit = (event) =>{
-    evt.preventDefault();
+    event.preventDefault();
 
     const newMember = {
       firstName: signup.firstName.trim(),
@@ -131,9 +130,22 @@ function App() {
       email: signup.email.trim(),
       password: signup.password.trim(),
       rptPassword: signup.rptPassword.trim(),
+      id: uuid(),
     };
 
     postMember(newMember);
+  };
+
+  const loginSubmit = (event) =>{
+    event.preventDefault();
+
+    const member = {
+      username: login.username.trim(),
+      email: login.email.trim(),
+      password: login.password.trim(),
+    };
+
+    getMembers(member);
   };
 
   useEffect(() =>{
@@ -150,6 +162,20 @@ function App() {
 
   return (
     <div className="App">
+      <Login
+        values={login}
+        onInputChange={loginInputChange}
+        onSubmit={loginSubmit}
+        disabled={disabled}
+        errors={loginErrors}
+      />
+      <Signup
+        values={signup}
+        onInputChange={signupInputChange}
+        onSubmit={signupSubmit}
+        disabled={disabled}
+        errors={signupErrors}
+      />
     </div>
   );
 }

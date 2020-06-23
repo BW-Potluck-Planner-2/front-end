@@ -5,6 +5,9 @@ const SignupSchema = yup.object().shape({
     .string()
     .min(2, 'Must be at least 2 characters long.')
     .required('First Name is required.'),
+    lastName: yup
+    .string()
+    .min(2, 'Must be at least 2 characters long.'),
     username: yup
     .string()
     .min(6, 'Must be at least 6 characters long.')
@@ -17,9 +20,6 @@ const SignupSchema = yup.object().shape({
     .string()
     .min(8, 'Must be at least 8 characters long.')
     .required('Password is required.'),
-    rptPassword: yup
-    .string()
-    .oneOf([yup.ref('password'), null], 'Passwords must match.')
 });
 
 export default SignupSchema;
