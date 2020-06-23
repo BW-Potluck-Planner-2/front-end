@@ -3,15 +3,16 @@ import React, {useState,  useEffect} from "react";
 
 
 import { axiosWithAuth } from "../utils/axiosWithAuth"
-import CreatePotluckForm from "./CreatePotluckForm"
+// import CreatePotluckForm from "./CreatePotluckForm"
 
 
-const PotluckCard = (props) => {
+const CreatePotluckCard = (props) => {
     const [ potluckInfo, setPotluckInfo ] = useState([])
     console.log(potluckInfo, "Do We Have Potluck INfo here .........??????")
 
     useEffect(() => {
-        axiosWithAuth().get("/potluckInfo")
+        axiosWithAuth()
+        .get("/api/potlucks")
         .then(res => {
             console.log(res, " We have res data potluck Info.........")
             setPotluckInfo(res.data)
@@ -24,8 +25,8 @@ const PotluckCard = (props) => {
 
     return (
         <div>
-            <CreatePotluckForm/>
-                <div>
+            {/* <CreatePotluckForm/> */}
+                <div>Potluck
                     {potluckInfo.map((potluck) => {
                         return (
                             <div key={potluck.id}>
@@ -40,4 +41,4 @@ const PotluckCard = (props) => {
         </div>
     )
 }
-export default PotluckCard
+export default CreatePotluckCard

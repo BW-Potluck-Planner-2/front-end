@@ -24,10 +24,17 @@ const handleChange = e => {
 const handleSubmit = e => {
     e.preventDefault();
     axiosWithAuth()
-    .post("/potluckInfo", newPotLuckInfo)
+    .post("/api/potlucks", newPotLuckInfo)
     .then(res => {
         console.log(res, "great! ! ! ! ! !  we have response")
         props.history.push("/addItemPage")
+        setNewPotLuckInfo({
+            potluckName: "",
+            location: "",
+            date: "",
+            time: "",
+        })
+
     })
     .catch(error => {
         console.log(error, " Not error fix it and get res :-)")
