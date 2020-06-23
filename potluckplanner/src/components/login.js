@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 
 const Login = (props) =>{
     const {
@@ -46,6 +47,11 @@ const Login = (props) =>{
                 <div>
                     <button disabled={disabled}>Submit</button>
                 </div>
+                <Link to='/'>
+                    <div>
+                        <button>Need to Sign Up?</button>
+                    </div>
+                </Link>
             </form>
         </div>
     )

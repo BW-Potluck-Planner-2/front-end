@@ -5,9 +5,6 @@ const SignupSchema = yup.object().shape({
     .string()
     .min(2, 'Must be at least 2 characters long.')
     .required('First Name is required.'),
-    lastName: yup
-    .string()
-    .min(2, 'Must be at least 2 characters long.'),
     username: yup
     .string()
     .min(6, 'Must be at least 6 characters long.')

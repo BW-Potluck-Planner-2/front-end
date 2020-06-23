@@ -7,6 +7,7 @@ import signupSchema from './components/formSchemaSignup';
 import * as yup from 'yup';
 import axios from 'axios';
 import { v4 as uuid } from 'uuid';
+import {Switch, Route} from 'react-router-dom';
 
 const initialLoginValues = {
   username: '',
@@ -44,7 +45,8 @@ function App() {
   const [signup, setSignup] = useState(initialSingupValues);
   const [loginErrors, setLoginErrors] = useState(initialLoginErrors);
   const [signupErrors, setSignupErrors] = useState(initialSingupErrors);
-  const [disabled, setDisabled] = useState(initialDisabled);
+  const [signupDisabled, setSignupDisabled] = useState(initialDisabled);
+  const [loginDisabled, setLoginDisabled] = useState(initialDisabled);
   const [members, setMembers] = useState(initialMembers);
 
   const getMembers = () =>{
@@ -129,7 +131,6 @@ function App() {
       username: signup.username.trim(),
       email: signup.email.trim(),
       password: signup.password.trim(),
-      rptPassword: signup.rptPassword.trim(),
       id: uuid(),
     };
 
@@ -150,32 +151,38 @@ function App() {
 
   useEffect(() =>{
     signupSchema.isValid(signup).then(valid =>{
-      setDisabled(!valid)
+      setSignupDisabled(!valid)
     });
   }, [signup]);
 
   useEffect(() =>{
     loginSchema.isValid(login).then(valid =>{
-      setDisabled(!valid)
+      setLoginDisabled(!valid)
     });
   }, [login]);
 
   return (
     <div className="App">
-      <Login
-        values={login}
-        onInputChange={loginInputChange}
-        onSubmit={loginSubmit}
-        disabled={disabled}
-        errors={loginErrors}
-      />
-      <Signup
-        values={signup}
-        onInputChange={signupInputChange}
-        onSubmit={signupSubmit}
-        disabled={disabled}
-        errors={signupErrors}
-      />
+      <Switch>
+        <Route exact path='/login'>
+          <Login
+            values={login}
+            onInputChange={loginInputChange}
+            onSubmit={loginSubmit}
+            disabled={loginDisabled}
+            errors={loginErrors}
+          />
+        </Route>
+        <Route path='/'>
+          <Signup
+            values={signup}
+            onInputChange={signupInputChange}
+            onSubmit={signupSubmit}
+            disabled={signupDisabled}
+            errors={signupErrors}
+          />
+        </Route>
+      </Switch>
     </div>
   );
 }
