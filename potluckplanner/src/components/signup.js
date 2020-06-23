@@ -11,7 +11,7 @@ const Signup = (props) =>{
     } = props
 
     return (
-        <div>
+        <div className='signup'>
             <form onSubmit={onSubmit}>
                 <h2>Sign Up Information</h2>
                 <label>First Name:<br/>
