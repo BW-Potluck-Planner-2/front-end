@@ -27,11 +27,16 @@ const PotluckPage = () => {
                 <Link to="/">Home</Link>
                 <Link to="/potluckForm">Create New PotLuck</Link>
             </Nav>
-            <PageContainer>
-                <CreatePotluckCard/>
-                <AddItemCard/>
-                <AddGuestCard/>               
-            </PageContainer>
+            <Link >
+                <PageContainer>
+                    <Link to="/updateForm">
+                        <CreatePotluckCard/>
+                    </Link>
+                    <AddItemCard/>
+                    <AddGuestCard/>            
+                </PageContainer>
+            </Link>
+
 
         </div>
     )
