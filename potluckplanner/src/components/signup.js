@@ -35,16 +35,6 @@ const Signup = (props) =>{
                     placeholder='Last Name'
                     />
                 </label><br/>
-                <p className='error'>{errors.username}</p>
-                <label>Username:
-                    <input
-                    value={values.username}
-                    onChange={onInputChange}
-                    name='username'
-                    type='text'
-                    placeholder='Username'
-                    />
-                </label><br/>
                 <p className='error'>{errors.email}</p>
                 <label>Email:
                     <input

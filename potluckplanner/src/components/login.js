@@ -15,16 +15,6 @@ const Login = (props) =>{
         <Styles>
             <form onSubmit={onSubmit}>
                 <h2>Login Information</h2>
-                <p className='error'>{errors.username}</p>
-                <label>User Name:
-                    <input
-                    value={values.username}
-                    onChange={onInputChange}
-                    name='username'
-                    type='text'
-                    placeholder='User Name'
-                    />
-                </label><br/>
                 <p className='error'>{errors.email}</p>
                 <label>Email:
                     <input

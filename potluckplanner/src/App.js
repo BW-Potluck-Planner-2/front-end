@@ -10,7 +10,6 @@ import { v4 as uuid } from 'uuid';
 import {Switch, Route} from 'react-router-dom';
 
 const initialLoginValues = {
-  username: '',
   email: '',
   password: '',
 };
@@ -18,20 +17,17 @@ const initialLoginValues = {
 const initialSingupValues = {
   firstName: '',
   lastName: '',
-  username: '',
   email: '',
   password: '',
 };
 
 const initialLoginErrors = {
-  username: '',
   email: '',
   password: '',
 };
 
 const initialSingupErrors = {
   firstName: '',
-  username: '',
   email: '',
   password: '',
 }
@@ -128,7 +124,6 @@ function App() {
     const newMember = {
       firstName: signup.firstName.trim(),
       lastName: signup.lastName.trim(),
-      username: signup.username.trim(),
       email: signup.email.trim(),
       password: signup.password.trim(),
       id: uuid(),
@@ -141,7 +136,6 @@ function App() {
     event.preventDefault();
 
     const member = {
-      username: login.username.trim(),
       email: login.email.trim(),
       password: login.password.trim(),
     };
