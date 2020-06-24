@@ -1,9 +1,24 @@
 import React, { useState } from "react";
 import { axiosWithAuth } from "../utils/axiosWithAuth"
 import { Link } from "react-router-dom";
-
+import styled from "styled-components"
 
 import AddItemCard from "./AddItemCard"
+
+const ItemFormContainer = styled.div`
+border: 1px solid gray;
+width: 70%;
+margin: 2rem auto;
+height: auto;
+`
+const ItemCard = styled.div`
+margin: 2rem;
+`
+const LinkBag = styled.div`
+margin: 2rem;
+display: flex;
+justify-content: space-around;
+`
 
 
 const AddItemForm = (props) => {
@@ -31,7 +46,7 @@ console.log(foodItems, "foodItem data ! ! ! ! ! ! ! !")
     }
 
     return (
-        <div> 
+        <ItemFormContainer> 
             <form onSubmit={handleSubmit}>
                 <input placeholder="Please add food"
                     type="text"
@@ -41,13 +56,15 @@ console.log(foodItems, "foodItem data ! ! ! ! ! ! ! !")
                 />
                 <button> Add Food</button>
             </form>
-            <div>
+            <ItemCard>
                 <AddItemCard/>
-            </div>
-            <div>
-                <Link to="/guestForm">Now, Please add Guests</Link>
-            </div>
-        </div>
+                <Link to="/guestForm">Now, Please add Guests</Link>    
+            </ItemCard>
+            <LinkBag>
+                <Link to="/potluckForm">Go To Potluck Form</Link>
+                <Link to="/potluckPage">Go To Potluck Page</Link>
+            </LinkBag>
+        </ItemFormContainer>
     )
 }
 export default AddItemForm
