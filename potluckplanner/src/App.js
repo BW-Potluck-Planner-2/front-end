@@ -163,6 +163,7 @@ function App() {
 
   return (
     <div className="App">
+      <h1>Potlucky Potluck Planner</h1>
       <Switch>
         <Route exact path='/login'>
           <Login
