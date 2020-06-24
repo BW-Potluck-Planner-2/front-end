@@ -1,16 +1,22 @@
 import React, { useState} from "react"
+import { Link } from "react-router-dom";
 
 
+import CreatePotluckCard from "./CreatePotluckCard"
 import { axiosWithAuth } from "../utils/axiosWithAuth"
 
 
 
 const CreatePotluckForm = (props) => {
+    console.log(props, "PpPpPpRrRrRrOoOoOoPpPpPpSsSsSs")
 const [ newPotLuckInfo, setNewPotLuckInfo ] = useState({
-    potluckName: "",
-    location: "",
-    date: "",
-    time: "",
+    locationName: "",
+    locationAddress: "",
+    locationStreet: "",
+    locationCity: "",      
+    locationState: "",
+    locationPostCode: "",
+    locationCountry: "",
 })
 console.log(newPotLuckInfo, " O o o o o O O O O o o o o")
 
@@ -29,15 +35,18 @@ const handleSubmit = e => {
         console.log(res, "great! ! ! ! ! !  we have response")
         props.history.push("/addItemPage")
         setNewPotLuckInfo({
-            potluckName: "",
-            location: "",
-            date: "",
-            time: "",
+            locationName: "",
+            locationAddress: "",
+            locationStreet: "",
+            locationCity: "",      
+            locationState: "",
+            locationPostCode: "",
+            locationCountry: "",
         })
 
     })
     .catch(error => {
-        console.log(error, " Not error fix it and get res :-)")
+        console.log(error, " Should Not get error!! fix it and get res :-(")
     })
 
 
@@ -47,32 +56,55 @@ const handleSubmit = e => {
             <form onSubmit={handleSubmit}>
                 <label>Potluck Name</label>
                     <input  type= "text"
-                            name= "potluckName"
-                            value= {props.potluckName}
+                            name= "locationName"
+                            value= {props.locationName}
                             onChange = {handleChange}
                     />
-                <label>Location</label>
+                <label>Block No</label>
+                    <input  type= "number"
+                            name= "locationAddress"
+                            value= {props.locationAddress}
+                            onChange = {handleChange}
+                    />
+                <label>Street</label>
                     <input  type= "text"
-                            name= "location"
-                            value= {props.location}
+                            name= "locationStreet"
+                            value= {props.locationStreet}
                             onChange = {handleChange}
                     />
-                <label>Date</label>
-                    <input  type= "date"
-                            name= "date"
-                            value= {props.date}
+                <label>City</label>
+                    <input  type= "text"
+                            name= "locationCity"
+                            value= {props.locationCity}
                             onChange = {handleChange}
                     />
-                <label>Time</label>
-                    <input  type= "time"
-                            name= "time"
-                            value= {props.time}
+                <label>State</label>
+                    <input  type= "text"
+                            name= "locationState"
+                            value= {props.locationState}
                             onChange = {handleChange}
                     />
-            
+                <label>Postal Code</label>
+                    <input  type= "text"
+                            name= "locationPostCode"
+                            value= {props.locationPostCode}
+                            onChange = {handleChange}
+                    />
+                <label>Country</label>
+                    <input  type= "text"
+                            name= "locationCountry"
+                            value= {props.locationCountry}
+                            onChange = {handleChange}
+                    />
                 <button>Submit</button>
-
             </form>
+            <div>
+                <CreatePotluckCard/>
+            </div>
+            <div>
+                 <Link to="/itemForm">Now, Please Go To Add Food</Link>                
+            </div>
+
         </div>
     )
 }

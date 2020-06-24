@@ -3,15 +3,15 @@ import { axiosWithAuth } from "../utils/axiosWithAuth"
 import { Link } from "react-router-dom";
 
 
-import AddItemCard from "./AddItemCard"
+import AddGuestCard from "./AddGuestCard"
 
 
-const AddItemForm = (props) => {
-    const [ foodItems, setFoodItems ] = useState("");
-console.log(foodItems, "foodItem data ! ! ! ! ! ! ! !")
+const AddGuestForm = (props) => {
+    const [ addGuest, setAddGuest ] = useState("");
+console.log(addGuest, "addGuestForm data /////////////////")
     const handleChange = e => {
-        setFoodItems({
-            ...foodItems,
+        setAddGuest({
+            ...addGuest,
             [e.target.name]: e.target.value
         })
     }
@@ -19,14 +19,14 @@ console.log(foodItems, "foodItem data ! ! ! ! ! ! ! !")
     const handleSubmit = e => {
         e.preventDefault();
         axiosWithAuth()
-        .post("/api/potlucks/reqs/:id", foodItems)
+        .post("/api/potlucks/user/add", addGuest)
         .then(res => {
-            console.log(res, "Add Food Item Data...../// / / / ? ? ? ")
+            console.log(res, "Add GuestForm  res //////////////")
             props.history.push("/potluckPage")
-            setFoodItems("")
+            setAddGuest("")
         })
         .catch(error => {
-            console.log(error, "food Item posting Error// / / / ? ? ? ")
+            console.log(error, "GuestForm Error//////////////")
         })
     }
 
@@ -35,19 +35,19 @@ console.log(foodItems, "foodItem data ! ! ! ! ! ! ! !")
             <form onSubmit={handleSubmit}>
                 <input placeholder="Please add food"
                     type="text"
-                    name="foodName"
-                    value={props.foodName}
+                    name="name"
+                    value={props.name}
                     onChange={handleChange}
                 />
-                <button> Add Food</button>
+                <button> Add Guest</button>
             </form>
             <div>
-                <AddItemCard/>
+                <AddGuestCard/>
             </div>
             <div>
-                <Link to="/guestForm">Now, Please add Guests</Link>
+                <Link to="/potluckPage">Back To Potluck Form</Link>
             </div>
         </div>
     )
 }
-export default AddItemForm
+export default AddGuestForm
