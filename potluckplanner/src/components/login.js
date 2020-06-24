@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import Styles from './styledcomponets';
 
 const Login = (props) =>{
     const {
@@ -11,11 +12,11 @@ const Login = (props) =>{
     } = props
 
     return (
-        <div className='login'>
+        <Styles>
             <form onSubmit={onSubmit}>
                 <h2>Login Information</h2>
-                <label>User Name:<br/>
                 <p className='error'>{errors.username}</p>
+                <label>User Name:
                     <input
                     value={values.username}
                     onChange={onInputChange}
@@ -24,8 +25,8 @@ const Login = (props) =>{
                     placeholder='User Name'
                     />
                 </label><br/>
-                <label>Email:<br/>
                 <p className='error'>{errors.email}</p>
+                <label>Email:
                     <input
                     value={values.email}
                     onChange={onInputChange}
@@ -34,8 +35,8 @@ const Login = (props) =>{
                     placeholder='Email'
                     />
                 </label><br/>
-                <label>Password:<br/>
                 <p className='error'>{errors.password}</p>
+                <label>Password:
                     <input
                     value={values.password}
                     onChange={onInputChange}
@@ -44,16 +45,12 @@ const Login = (props) =>{
                     placeholder='Password'
                     />
                 </label>
-                <div>
-                    <button disabled={disabled}>Submit</button>
+                <div className='bttn'>
+                    <button disabled={disabled} className='submit'>Submit</button>
+                    <Link to='/'><button>Need to Sign Up?</button></Link>
                 </div>
-                <Link to='/'>
-                    <div>
-                        <button>Need to Sign Up?</button>
-                    </div>
-                </Link>
             </form>
-        </div>
+        </Styles>
     )
 };
 

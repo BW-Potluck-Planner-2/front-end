@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import Styles from './styledcomponets';
 
 const Signup = (props) =>{
     const {
@@ -11,11 +12,11 @@ const Signup = (props) =>{
     } = props
 
     return (
-        <div className='signup'>
+        <Styles>
             <form onSubmit={onSubmit}>
                 <h2>Sign Up Information</h2>
-                <label>First Name:<br/>
                 <p className='error'>{errors.firstName}</p>
+                <label>First Name:
                     <input
                     value={values.firstName}
                     onChange={onInputChange}
@@ -24,8 +25,8 @@ const Signup = (props) =>{
                     placeholder='First Name'
                     />
                 </label><br/>
-                <label>Last Name:<br/>
                 <p></p>
+                <label>Last Name:
                     <input
                     value={values.lastName}
                     onChange={onInputChange}
@@ -34,8 +35,8 @@ const Signup = (props) =>{
                     placeholder='Last Name'
                     />
                 </label><br/>
-                <label>Username:<br/>
                 <p className='error'>{errors.username}</p>
+                <label>Username:
                     <input
                     value={values.username}
                     onChange={onInputChange}
@@ -44,8 +45,8 @@ const Signup = (props) =>{
                     placeholder='Username'
                     />
                 </label><br/>
-                <label>Email:<br/>
                 <p className='error'>{errors.email}</p>
+                <label>Email:
                     <input
                     value={values.email}
                     onChange={onInputChange}
@@ -54,8 +55,8 @@ const Signup = (props) =>{
                     placeholder='Email'
                     />
                 </label><br/>
-                <label>Password:<br/>
                 <p className='error'>{errors.password}</p>
+                <label>Password:
                     <input
                     value={values.password}
                     onChange={onInputChange}
@@ -64,16 +65,12 @@ const Signup = (props) =>{
                     placeholder='Password'
                     />
                 </label>
-                <div>
-                    <button disabled={disabled}>Submit</button>
+                <div className='bttn'>
+                    <button disabled={disabled} className='submit'>Submit</button>
+                    <Link to='/login'><button>Already have an account?</button></Link>
                 </div>
-                <Link to='/login'>
-                    <div>
-                        <button>Already have an account?</button>
-                    </div>
-                </Link>
             </form>
-        </div>
+        </Styles>
     )
 };
 
