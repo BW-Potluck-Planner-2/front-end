@@ -45,7 +45,7 @@ const initialMembers = [];
 
 const initialDisabled = true;
 
-function App() {
+function App(props) {
   const [login, setLogin] = useState(initialLoginValues);
   const [signup, setSignup] = useState(initialSingupValues);
   const [loginErrors, setLoginErrors] = useState(initialLoginErrors);
@@ -77,6 +77,20 @@ function App() {
         setSignup(initialSingupValues)
       })
   };
+
+  const submitLoginInfo = e => {
+    e.preventDefault();
+    axiosWithAuth().post("/api.auth/login")
+    .then(res => {
+      console.log(res, "postLogin res ()()()()()()()")
+      localStorage.setItem("token", response.data.payload)
+      props.history.push("/potluckPage")
+    })
+    .catch(error => {
+      console.log(error, "postLogin Error ()()()()()()")
+    })
+
+  }
 
   const signupInputChange = (event) =>{
     const {name, value} = event.target;
