@@ -18,6 +18,12 @@ export default styled.div`
         justify-content: space-between;
     }
 
+    button{
+        background-color: #CBE2B0;
+        border: 1px dashed black;
+        border-radius: 12px;
+    }
+
     .error{
         color: red;
         font-weight: bold;
