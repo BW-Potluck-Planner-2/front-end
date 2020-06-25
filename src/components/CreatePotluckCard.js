@@ -1,6 +1,7 @@
 import React, {useState,  useEffect} from "react";
 import styled from "styled-components"
-import {Link} from "react-router-dom"
+import {Link, Switch, Route} from "react-router-dom"
+import Potluck from './Potluck'
 
 import { axiosWithAuth } from "../utils/axiosWithAuth"
 // import CreatePotluckForm from "./CreatePotluckForm"
@@ -44,6 +45,8 @@ const CreatePotluckCard = (props) => {
     return (
         <div>
             {/* <CreatePotluckForm/> */}
+            <Switch>
+                <Route exact path={'/potluckPage'}>
                 <div>Potluck
                     {potluckInfo.map((potluck) => {
                         return (
@@ -65,6 +68,11 @@ const CreatePotluckCard = (props) => {
                     <AddGuestCard/>  */}
                     {/* <button onClick={deletePotluck}>Delete potluck</button> */}
                 </div>
+                </Route>
+                <Route exact path={`/potluckPage/${potluck.id}`}>
+                    <Potluck/>
+                </Route>
+                </Switch>
         </div>
     )
 }
