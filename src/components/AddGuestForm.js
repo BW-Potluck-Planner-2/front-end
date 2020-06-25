@@ -19,41 +19,61 @@ margin: 2rem;
 display: flex;
 justify-content: space-around;
 `
+const initialGestInfo = {
+    role: "",
+    email: "",
+}
 
 
 const AddGuestForm = (props) => {
-    const [ addGuest, setAddGuest ] = useState("");
+    const [ addGuest, setAddGuest ] = useState(initialGestInfo);
 console.log(addGuest, "addGuestForm data /////////////////")
-    const handleChange = e => {
+
+    const GuestHandleChange = e => {
         setAddGuest({
             ...addGuest,
             [e.target.name]: e.target.value
         })
     }
 
-    const handleSubmit = e => {
+    const GuestHandleSubmit = e => {
+        const newGuestInfo = {
+            "potluckId": Date.now(),
+            "role": addGuest.role,
+            "email": addGuest.email,
+        }
+
         e.preventDefault();
         axiosWithAuth()
-        .post("/api/potlucks/user/add", addGuest)
+        .post("/api/potlucks/user/add", newGuestInfo)
         .then(res => {
-            console.log(res, "Add GuestForm  res //////////////")
-            props.history.push("/potluckPage")
-            setAddGuest("")
+            console.log(res, "Add GuestForm  res //////////////")          
         })
         .catch(error => {
             console.log(error, "GuestForm Error//////////////")
         })
+        setAddGuest("")
     }
 
     return (
         <GuestFormContainer> 
-            <form onSubmit={handleSubmit}>
-                <input placeholder="Add Guest"
-                    type="text"
-                    name="name"
-                    value={props.name}
-                    onChange={handleChange}
-                />
+            <form onSubmit={GuestHandleSubmit}>
+                <label>Role:  
+                <input 
+                        type="text"
+                        name="role"
+                        value={addGuest.role}
+                        onChange={GuestHandleChange}
+                    /> </label> 
+                
+                <label>Email:  
+                    <input 
+                        type="text"
+                        name="email"
+                        value={addGuest.email}
+                        onChange={GuestHandleChange}
+                    /> </label>
+
                 <button> Add Guest</button>
             </form>
             <GuestCard>

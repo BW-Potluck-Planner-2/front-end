@@ -88,7 +88,7 @@ function App(props) {
     .post("/api/auth/register", signup)
     .then(res => {
       console.log(res, "postSignup Res ()()()()()()()()")
-      localStorage.setItem("token", res.data.payload)
+      localStorage.setItem("token", res.data.authToken)
       props.history.push("/login")
     })
     .catch(error => {
@@ -102,7 +102,7 @@ function App(props) {
     .post("/api/auth/login", login)
     .then(res => {
       console.log(res, "postLogin res ()()()()()()()")
-      localStorage.setItem("token", res.data.payload)
+      localStorage.setItem("token", res.data.authToken)
       props.history.push("/potluckPage")
     })
     .catch(error => {

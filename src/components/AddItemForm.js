@@ -19,11 +19,15 @@ margin: 2rem;
 display: flex;
 justify-content: space-around;
 `
-
+const initialFoodItems = {
+    foodDescription: "",
+    serving: "",
+}
 
 const AddItemForm = (props) => {
-    const [ foodItems, setFoodItems ] = useState("");
+    const [ foodItems, setFoodItems ] = useState(initialFoodItems);
 console.log(foodItems, "foodItem data ! ! ! ! ! ! ! !")
+
     const handleChange = e => {
         setFoodItems({
             ...foodItems,
@@ -32,30 +36,48 @@ console.log(foodItems, "foodItem data ! ! ! ! ! ! ! !")
     }
 
     const handleSubmit = e => {
+        const newFoodItems = {
+            "foodDescription": foodItems.foodDescription,
+            "serving": foodItems.serving,
+        }
+
         e.preventDefault();
         axiosWithAuth()
-        .post("/api/potlucks/reqs/:id", foodItems)
+        .post("/api/food", newFoodItems)
         .then(res => {
             console.log(res, "Add Food Item Data...../// / / / ? ? ? ")
-            props.history.push("/potluckPage")
-            setFoodItems("")
+            // props.history.push("/potluckPage")
+            
         })
         .catch(error => {
             console.log(error, "food Item posting Error// / / / ? ? ? ")
         })
+        setFoodItems("")
     }
 
     return (
         <ItemFormContainer> 
             <form onSubmit={handleSubmit}>
-                <input placeholder="Please add food"
-                    type="text"
-                    name="foodName"
-                    value={props.foodName}
-                    onChange={handleChange}
-                />
+                <label>
+                    <input placeholder="Name of Food"
+                        type="text"
+                        name="foodDescription"
+                        value={foodItems.foodDescription}
+                        onChange={handleChange}
+                    />                    
+                </label>
+
+                <label>
+                    <input placeholder="Servings"
+                        type="number"
+                        name="serving"
+                        value={foodItems.serving}
+                        onChange={handleChange}
+                    />                    
+                </label>
                 <button> Add Food</button>
             </form>
+
             <ItemCard>
                 <AddItemCard/>
                 <Link to="/guestForm">Now, Please add Guests</Link>    
