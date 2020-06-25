@@ -1,5 +1,6 @@
 import React, {useState,  useEffect} from "react";
 import styled from "styled-components"
+import {Link} from "react-router-dom"
 
 import { axiosWithAuth } from "../utils/axiosWithAuth"
 // import CreatePotluckForm from "./CreatePotluckForm"
@@ -47,13 +48,16 @@ const CreatePotluckCard = (props) => {
                     {potluckInfo.map((potluck) => {
                         return (
                             <PotluckContainer key={potluck.id}>
-                                <h3>Potluck Name: {potluck.locationName} </h3>
-                                <p>Block Number: {potluck.locationAddress} </p>
-                                <p>Street: {potluck.locationStreet} </p>
-                                <p>City: {potluck.locationCity} </p>
-                                <p>State: {potluck.locationState} </p>
-                                <p>Postal Code: {potluck.locationPostcode} </p>
-                                <p>Country: {potluck.locationCountry} </p>
+                                <Link to={`/potluckPage/${potluck.id}`}>
+                                    <h3>Potluck Name: {potluck.locationName} </h3>
+                                    <p>Block Number: {potluck.locationAddress} </p>
+                                    <p>Street: {potluck.locationStreet} </p>
+                                    <p>City: {potluck.locationCity} </p>
+                                    <p>State: {potluck.locationState} </p>
+                                    <p>Postal Code: {potluck.locationPostcode} </p>
+                                    <p>Country: {potluck.locationCountry} </p>
+                                </Link>
+                               
                             </PotluckContainer>
                         )})
                     }

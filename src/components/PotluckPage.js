@@ -28,9 +28,9 @@ const PotluckPage = () => {
                 <Link to="/potluckForm">Create New PotLuck</Link>
             </Nav>       
                 <PageContainer>
-                    <Link to="/updateForm">
+                   
                         <CreatePotluckCard/>
-                    </Link>
+                    
                     <AddItemCard/>
                     <AddGuestCard/>            
                 </PageContainer>

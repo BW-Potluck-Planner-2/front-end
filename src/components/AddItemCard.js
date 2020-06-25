@@ -28,7 +28,8 @@ useEffect(() => {
                     {items.map((item) => {
                         return (
                             <ul>
-                                <li>{item.foodName}</li>
+                                <li>Food Description:{item.foodDescription}</li>
+                                <li>Servings: {item.servings} </li>
                             </ul>
                             
                         )

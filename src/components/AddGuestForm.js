@@ -38,9 +38,9 @@ console.log(addGuest, "addGuestForm data /////////////////")
 
     const GuestHandleSubmit = e => {
         const newGuestInfo = {
-            "potluckId": Date.now(),
-            "role": addGuest.role,
-            "email": addGuest.email,
+            potluckId: Date.now(),
+            role: addGuest.role,
+            email: addGuest.email,
         }
 
         e.preventDefault();
@@ -52,7 +52,7 @@ console.log(addGuest, "addGuestForm data /////////////////")
         .catch(error => {
             console.log(error, "GuestForm Error//////////////")
         })
-        setAddGuest("")
+        setAddGuest(initialGestInfo)
     }
 
     return (
@@ -68,7 +68,7 @@ console.log(addGuest, "addGuestForm data /////////////////")
                 
                 <label>Email:  
                     <input 
-                        type="text"
+                        type="email"
                         name="email"
                         value={addGuest.email}
                         onChange={GuestHandleChange}

@@ -1,10 +1,11 @@
 import React, {useState, useEffect}  from 'react';
 import './App.css';
+import { useHistory } from "react-router-dom";
 // import styled from "styled-components";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 
 import * as yup from 'yup';
-import axios from 'axios';
+// import axios from 'axios';
 import { v4 as uuid } from 'uuid';
 import loginSchema from './components/formSchemalogin';
 import signupSchema from './components/formSchemaSignup';
@@ -18,6 +19,7 @@ import AddGuestForm from "./components/AddGuestForm"
 import UpdatePotluckForm from "./components/UpdatePotluckForm"
 import { axiosWithAuth } from './utils/axiosWithAuth';
 import PrivateRoute from "./utils/PrivateRoute";
+import Potluck from "./components/Potluck"
 
 const initialLoginValues = {
   email: '',
@@ -48,15 +50,20 @@ const initialMembers = [];
 const initialDisabled = true;
 
 function App(props) {
+  // console.log(props, "kjhabgfsoiagdsoaqiguds")
   const [login, setLogin] = useState(initialLoginValues);
-  console.log(login, " login Info {}{}{}{}{}{}|{}|")
+  // console.log(login, " login Info {}{}{}{}{}{}|{}|")
+
   const [signup, setSignup] = useState(initialSignupValues);
-  console.log(signup, " SIGN UP Info {}{}{}{}{}{}|{}|")
+  // console.log(signup, " SIGN UP Info {}{}{}{}{}{}|{}|")
+
   const [loginErrors, setLoginErrors] = useState(initialLoginErrors);
   const [signupErrors, setSignupErrors] = useState(initialSignupErrors);
   const [signupDisabled, setSignupDisabled] = useState(initialDisabled);
   const [loginDisabled, setLoginDisabled] = useState(initialDisabled);
   const [members, setMembers] = useState(initialMembers);
+
+  // let history = useHistory();
 
   // const getMembers = () =>{
   //   axiosWithAuth()
@@ -88,7 +95,7 @@ function App(props) {
     .post("/api/auth/register", signup)
     .then(res => {
       console.log(res, "postSignup Res ()()()()()()()()")
-      localStorage.setItem("token", res.data.authToken)
+      // localStorage.setItem("token", res.data.authToken)
       props.history.push("/login")
     })
     .catch(error => {
@@ -103,12 +110,12 @@ function App(props) {
     .then(res => {
       console.log(res, "postLogin res ()()()()()()()")
       localStorage.setItem("token", res.data.authToken)
-      props.history.push("/potluckPage")
+     props.history.push("/potluckPage")
     })
     .catch(error => {
       console.log(error, "postLogin Error ()()()()()()")
     })
-    setLogin(initialLoginValues)
+    // setLogin(initialLoginValues)
   }
 
   const signupInputChange = (event) =>{
@@ -208,7 +215,8 @@ function App(props) {
         <div>
           <Link to="/potluckPage">Go To Potluck Page</Link>
           <Link to="/login">Login</Link>
-          <Link to="/register">Register</Link>          
+          <Link to="/register">Register</Link>
+          <Link to="/home"> Home </Link>          
         </div>
 
         <Switch>
@@ -217,7 +225,8 @@ function App(props) {
                                               // onSubmit={loginSubmit}
                                               disabled={loginDisabled}
                                               errors={loginErrors}
-                                              submitLoginInfo={submitLoginInfo}/> </Route>
+                                              submitLoginInfo={submitLoginInfo}
+                                              {...props}/> </Route>
 
           <Route exact path="/register"><Signup values={signup}
                                               onInputChange={signupInputChange}
@@ -229,8 +238,9 @@ function App(props) {
           <PrivateRoute exact path="/potluckForm" component={CreatePotluckForm}/>
           <PrivateRoute exact path="/itemForm" component={AddItemForm}/>
           <PrivateRoute exact path="/guestForm" component={AddGuestForm}/>
-          <PrivateRoute exact path="/potluckPage" component={PotluckPage}/>  
-          <PrivateRoute exact path="/updateForm" component={UpdatePotluckForm}/>         
+          <PrivateRoute exact path="/potluckPage" component={PotluckPage}/>
+          <PrivateRoute exact Path="/potluckPage/:id" component={Potluck}/>  
+          <PrivateRoute exact path="/potluckPage/updateForm/:id" component={UpdatePotluckForm}/>         
         </Switch>
       </div>      
     </Router>

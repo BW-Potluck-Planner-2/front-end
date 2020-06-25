@@ -33,13 +33,13 @@ text-align: center; */
 
 
 const initialPotluckInfo = {
-    "locationName": "",
-    "locationAddress": "",
-    "locationStreet": "",
-    "locationState": "",
-    "locationCity": "",  
-    "locationCountry": "",
-    "locationPostcode": "",
+    locationName: "",
+    locationAddress: "",
+    locationStreet: "",
+    locationState: "",
+    locationCity: "",  
+    locationCountry: "",
+    locationPostcode: "",
 }
 
 const CreatePotluckForm = (props) => {
@@ -71,10 +71,9 @@ const CreatePotluckForm = (props) => {
         .post("/api/potlucks", newPotluck)
         .then(res => {
             console.log(res, "great! ! ! ! ! !  we have response")
-            // localStorage.setItem("token", res.data.authToken)
         })
         .catch(error => {
-            console.log(error.message, " Should Not get error!! fix it and get res :-(")
+            console.log(error, " Should Not get error!! fix it and get res :-( ")
         })
         setNewPotLuckInfo(initialPotluckInfo)
 

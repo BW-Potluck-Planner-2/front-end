@@ -34,8 +34,7 @@ text-align: center; */
 
 
 const initialPotluck = {
-    id: Date.now(),
-    locationName: "",
+     locationName: "",
     locationAddress: "",
     locationStreet: "",
     locationCity: "",      
@@ -46,111 +45,99 @@ const initialPotluck = {
 
 const UpdatePotluckForm = (props) => {
     console.log(props, "W H A T   W E  H A V E   H E R E ? ? ? ")
-const [ item, setItem ] = useState(initialPotluck)
-console.log(item, " {{{{{{[[{{{{ o o o o O O O O o o o o}}}}]]}}}}}}")
-const { push } = useHistory();
-const {id} = useParams()
 
-const handleChange = e => {
-    setItem({
-        ...item,
-        [e.target.name]: e.target.value,
-    })
-}
+    const [ editPotluck, setEditPotluck ] = useState(initialPotluck)
+    console.log(editPotluck, " {{{{{{[[{{{{ o o o o O O O O o o o o}}}}]]}}}}}}")
 
-useEffect(() => {
-    axiosWithAuth()
-    .get(`/api/potlucks/${id}`)
-    .then(res => {
-        console.log(res, "GET UpdateForm RES <<<<<<<>>>>>>>")
-        setItem(res.data)
-    })
-    .catch(error => {
-        console.log(error, " GET UpdateForm ERROR <<<<<<<>>>>>>>")
-    })
-}, [id])
+    const { push } = useHistory();
+    const {id} = useParams()
 
+    const handleChange = e => {
+        setEditPotluck({
+            ...editPotluck,
+            [e.target.name]: e.target.value,
+        })
+    }
 
-
-const updatePotluck = e => {
-    e.preventDefault();
-    axiosWithAuth()
-    .put(`/api/potlucks/${id}`, item)
-    .then(res => {
-        console.log(res, "PUT UpdateForm RRS  <<<<<<<>>>>>>>")
-        // props.history.push("/addItemPage")
-        props.setItem(res.data)
-        push(`/api/potlucks/${id}`)
+    useEffect(() => {
+        axiosWithAuth()
+        .get(`/api/potlucks/${id}`)
+        .then(res => {
+            console.log(res, "GET UpdateForm RES <<<<<<<>>>>>>>")
+            props.setEditPotluck(res.data)
+        })
+        .catch(error => {
+            console.log(error, " GET UpdateForm ERROR <<<<<<<>>>>>>>")
+        })
+    }, [id])
 
 
-    })
-    .catch(error => {
-        console.log(error, "PUT UpdateForm ERROPR <<<<<<<>>>>>>>")
-    })
+
+    const updateHandleSubmit = e => {
+        e.preventDefault();
+        axiosWithAuth()
+        .put(`/api/potlucks/${id}`, editPotluck)
+        .then(res => {
+            console.log(res, "PUT UpdateForm RRS  <<<<<<<>>>>>>>")
+            props.setEditPotluck(res.data)
+            push(`/potlucks/${id}`)
+        })
+        .catch(error => {
+            console.log(error, "PUT UpdateForm ERROPR <<<<<<<>>>>>>>")
+        })
+        // history.push(`/api/potlucks/${id}`)
+
+    }
 
 
-}
-
-const deletePotluck = potluck => {
-    axiosWithAuth()
-    .delete(`/api/potlucks/${potluck.id}`)
-    .then(res => {
-        console.log(res, "DELETE UpdateForm  RES <<<<<<<>>>>>>>")
-        props.setItem(res.data)
-        push("/potluckPage")
-    })
-    .catch(error =>{
-        console.log(error, "DELETE UpdateForm ERROR <<<<<<<>>>>>>>")
-    })
-}
     return (
         <UpdateFormContainer>
-            <Form>
+            <Form onSubmit={updateHandleSubmit}>
                 <label>Potluck Name
                     <input  type= "text"
                             name= "locationName"
-                            value= {props.locationName}
+                            value= {editPotluck.locationName}
                             onChange = {handleChange}
                     /> </label>
                 <label>Block No
                     <input  type= "number"
                             name= "locationAddress"
-                            value= {props.locationAddress}
+                            value= {editPotluck.locationAddress}
                             onChange = {handleChange}
                     /> </label>
                 <label>Street
                     <input  type= "text"
                             name= "locationStreet"
-                            value= {props.locationStreet}
+                            value= {editPotluck.locationStreet}
                             onChange = {handleChange}
                     /> </label>
                 <label>City
                     <input  type= "text"
                             name= "locationCity"
-                            value= {props.locationCity}
+                            value= {editPotluck.locationCity}
                             onChange = {handleChange}
                     /> </label>
                 <label>State
                     <input  type= "text"
                             name= "locationState"
-                            value= {props.locationState}
+                            value= {editPotluck.locationState}
                             onChange = {handleChange}
                     /> </label>
                 <label>Postal Code
                     <input  type= "text"
                             name= "locationPostCode"
-                            value= {props.locationPostCode}
+                            value= {editPotluck.locationPostCode}
                             onChange = {handleChange}
                     /> </label>
                 <label>Country
                     <input  type= "text"
                             name= "locationCountry"
-                            value= {props.locationCountry}
+                            value= {editPotluck.locationCountry}
                             onChange = {handleChange}
                     /> </label>
+                <Button >Update</Button>
             </Form>
-            <Button onClick={updatePotluck}>Update PotLuck</Button>
-            <Button onClick={deletePotluck}>Delete PotLuck</Button>
+            
             <div>
                 <Link to="/itemForm">Now, Please Go To Add Food</Link>                
             </div>

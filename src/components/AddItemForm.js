@@ -26,7 +26,7 @@ const initialFoodItems = {
 
 const AddItemForm = (props) => {
     const [ foodItems, setFoodItems ] = useState(initialFoodItems);
-console.log(foodItems, "foodItem data ! ! ! ! ! ! ! !")
+    console.log(foodItems, "foodItem data ! ! ! ! ! ! ! !")
 
     const handleChange = e => {
         setFoodItems({
@@ -50,9 +50,9 @@ console.log(foodItems, "foodItem data ! ! ! ! ! ! ! !")
             
         })
         .catch(error => {
-            console.log(error, "food Item posting Error// / / / ? ? ? ")
+            console.log(error.message, "food Item posting Error// / / / ? ? ? ")
         })
-        setFoodItems("")
+        setFoodItems(initialFoodItems)
     }
 
     return (
@@ -70,8 +70,8 @@ console.log(foodItems, "foodItem data ! ! ! ! ! ! ! !")
                 <label>
                     <input placeholder="Servings"
                         type="number"
-                        name="serving"
-                        value={foodItems.serving}
+                        name="servings"
+                        value={foodItems.servings}
                         onChange={handleChange}
                     />                    
                 </label>
