@@ -69,9 +69,9 @@ const CreatePotluckCard = (props) => {
                     {/* <button onClick={deletePotluck}>Delete potluck</button> */}
                 </div>
                 </Route>
-                <Route exact path={`/potluckPage/${potluck.id}`}>
+                {/* <Route exact path={`/potluckPage/${potluck.id}`}>
                     <Potluck/>
-                </Route>
+                </Route> */}
                 </Switch>
         </div>
     )

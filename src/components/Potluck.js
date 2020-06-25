@@ -6,7 +6,15 @@ import {axiosWithAuth} from "../utils/axiosWithAuth"
 const Potluck = (props) => {
     console.log(props, " What's in the Props:;:;:;:;:;:;:;:;:;:;:;:;:;:;")
 
-    const [potluck, setPotluck] = useState([])
+    const [potluck, setPotluck] = useState([{
+      locationName: "",
+      locationAddress: "",
+      locationStreet: "",
+      locationState: "",
+      locationCity: "",  
+      locationCountry: "",
+      locationPostcode: "",
+    }])
 
     const { push } = useHistory();
 
@@ -16,7 +24,7 @@ const Potluck = (props) => {
 
       useEffect(() => {
         axiosWithAuth()
-          .get("/api/potlucks")
+          .get("/api/potlucks/")
           .then(res => {
             console.log(res, " Res in Potluck comp....get request")
             setPotluck(res.data)
@@ -48,19 +56,19 @@ const Potluck = (props) => {
 
     return (
         <div>Edit/Delete potluck
-          {/* {potluck.map((potluckInfo) => {
-            return ( */}
+          {potluck.map((potluckInfo) => {
+            return (
               <div>
-                <h3>{potluck.locationName}</h3>
-                <p>{potluck.locationAddress}</p>
-                <p>{potluck.locationStreet}</p>
-                <p>{potluck.locationCity}</p>
-                <p>{potluck.locationState}</p>
-                <p>{potluck.locationPostcode}</p>
-                <p>{potluck.locationCountry}</p>
+                <h3>{potluckInfo.locationName}</h3>
+                <p>{potluckInfo.locationAddress}</p>
+                <p>{potluckInfo.locationStreet}</p>
+                <p>{potluckInfo.locationCity}</p>
+                <p>{potluckInfo.locationState}</p>
+                <p>{potluckInfo.locationPostcode}</p>
+                <p>{potluckInfo.locationCountry}</p>
               </div>
-          {/* //   )
-          // })} */}
+             )
+           })}
         
           <button onClick={clickToEdit}>Edit Potluck</button>
           <button onClick={HandleDelete}>Delete Potluck</button>

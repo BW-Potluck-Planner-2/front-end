@@ -1,7 +1,7 @@
 import React, {useState, useEffect}  from 'react';
 import './App.css';
 import { useHistory } from "react-router-dom";
-// import styled from "styled-components";
+import styled from "styled-components";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 
 import * as yup from 'yup';
@@ -20,6 +20,21 @@ import UpdatePotluckForm from "./components/UpdatePotluckForm"
 import { axiosWithAuth } from './utils/axiosWithAuth';
 import PrivateRoute from "./utils/PrivateRoute";
 import Potluck from "./components/Potluck"
+
+const Navigator = styled.nav`
+display: flex;
+`
+const LinkContainer = styled.div`
+  margin: 1rem auto;
+  padding: 2px 10px;
+  /* text-decoration: none; */
+  background-color: #CBE2B0;
+  border: 1px dashed black;
+  border-radius: 12px;
+  &:hover{
+      background: green;
+   }
+`
 
 const initialLoginValues = {
   email: '',
@@ -212,12 +227,13 @@ function App(props) {
         <header className="App-header">
             <h1> Potlucky Potluck Planner</h1>
         </header>
-        <div>
-          <Link to="/potluckPage">Go To Potluck Page</Link>
-          <Link to="/login">Login</Link>
-          <Link to="/register">Register</Link>
-          <Link to="/home"> Home </Link>          
-        </div>
+        <Navigator>
+          <LinkContainer><Link to="/potluckPage" style={{textDecoration: "none", color: "black"}} >Go To Potluck Page</Link></LinkContainer>
+          <LinkContainer><Link to="/login" style={{textDecoration: "none", color: "black"}}>Login</Link></LinkContainer>
+          <LinkContainer><Link to="/register" style={{textDecoration: "none", color: "black"}}>Register</Link></LinkContainer>
+          <LinkContainer><Link to="/home" style={{textDecoration: "none", color: "black"}}> Home </Link> </LinkContainer>
+           
+        </Navigator>
 
         <Switch>
           <Route exact path="/login"> <Login  values={login}
