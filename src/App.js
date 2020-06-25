@@ -1,12 +1,12 @@
 import React, {useState, useEffect}  from 'react';
 import './App.css';
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 
 import * as yup from 'yup';
 // import axios from 'axios';
-import { v4 as uuid } from 'uuid';
+// import { v4 as uuid } from 'uuid';
 import loginSchema from './components/formSchemalogin';
 import signupSchema from './components/formSchemaSignup';
 
@@ -33,6 +33,7 @@ const LinkContainer = styled.div`
   border-radius: 12px;
   &:hover{
       background: green;
+      box-shadow: 0 0 5px 2px green;
    }
 `
 
@@ -60,7 +61,7 @@ const initialSignupErrors = {
   password: '',
 }
 
-const initialMembers = [];
+// const initialMembers = [];
 
 const initialDisabled = true;
 
@@ -76,7 +77,23 @@ function App(props) {
   const [signupErrors, setSignupErrors] = useState(initialSignupErrors);
   const [signupDisabled, setSignupDisabled] = useState(initialDisabled);
   const [loginDisabled, setLoginDisabled] = useState(initialDisabled);
-  const [members, setMembers] = useState(initialMembers);
+  // const [members, setMembers] = useState(initialMembers);
+
+  const [ potluckInfo, setPotluckInfo ] = useState([])
+  console.log(potluckInfo, "Do We Have Potluck INfo here .........??????")
+
+  useEffect(() => {
+      axiosWithAuth()
+      .get("/api/potlucks")
+      .then(res => {
+          console.log(res, " We have res data potluck Info.........")
+          setPotluckInfo(res.data)
+      })
+      .catch(error => {
+          console.log(error, " ? / ? not getting POTLUCK INFO.........")
+      })
+
+  }, [])
 
   // let history = useHistory();
 
@@ -128,7 +145,7 @@ function App(props) {
      props.history.push("/potluckPage")
     })
     .catch(error => {
-      console.log(error, "postLogin Error ()()()()()()")
+      console.log(error.message, "postLogin Error ()()()()()()")
     })
     // setLogin(initialLoginValues)
   }
@@ -254,9 +271,14 @@ function App(props) {
           <PrivateRoute exact path="/potluckForm" component={CreatePotluckForm}/>
           <PrivateRoute exact path="/itemForm" component={AddItemForm}/>
           <PrivateRoute exact path="/guestForm" component={AddGuestForm}/>
-          <PrivateRoute exact path="/potluckPage" component={PotluckPage}/>
-          <PrivateRoute exact Path="/potluckPage/:id" component={Potluck}/>  
-          <PrivateRoute exact path="/potluckPage/updateForm/:id" component={UpdatePotluckForm}/>         
+
+          <PrivateRoute exact path="/potluckPage" 
+              render={() => <PotluckPage {...props} potluckInfo={potluckInfo}/>}/>
+          <PrivateRoute exact path="/potluckPage/updateForm/:id" 
+              render={() => <UpdatePotluckForm setPotluckInfo={setPotluckInfo}/>}/>
+          <PrivateRoute exact Path="/potluckPage/:id" 
+              render={() =><Potluck {...props} potluckInfo={potluckInfo} setPotluckInfo={setPotluckInfo}/>}/> 
+
         </Switch>
       </div>      
     </Router>

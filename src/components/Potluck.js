@@ -6,71 +6,71 @@ import {axiosWithAuth} from "../utils/axiosWithAuth"
 const Potluck = (props) => {
     console.log(props, " What's in the Props:;:;:;:;:;:;:;:;:;:;:;:;:;:;")
 
-    const [potluck, setPotluck] = useState([{
-      locationName: "",
-      locationAddress: "",
-      locationStreet: "",
-      locationState: "",
-      locationCity: "",  
-      locationCountry: "",
-      locationPostcode: "",
-    }])
+    // const [potluck, setPotluck] = useState([{
+    //   locationName: "",
+    //   locationAddress: "",
+    //   locationStreet: "",
+    //   locationState: "",
+    //   locationCity: "",  
+    //   locationCountry: "",
+    //   locationPostcode: "",
+    // }])
 
-    const { push } = useHistory();
+    const history= useHistory();
 
-    // const item = props.potluck.find(
-    //   thing => `${thing.id}` === props.match.params.id
-    // );
+    const potluck = props.potluckInfo.find(
+      thing => `${thing.id}` === props.match.params.id
+    );
 
-      useEffect(() => {
-        axiosWithAuth()
-          .get("/api/potlucks/")
-          .then(res => {
-            console.log(res, " Res in Potluck comp....get request")
-            setPotluck(res.data)
+      // useEffect(() => {
+      //   axiosWithAuth()
+      //     .get("/api/potlucks/")
+      //     .then(res => {
+      //       console.log(res, " Res in Potluck comp....get request")
+      //       setPotluck(res.data)
           
-          })
-          .catch(error => {
-            console.log(error)
-          })
-      }, []);
+      //     })
+      //     .catch(error => {
+      //       console.log(error)
+      //     })
+      // }, []);
 
-      const HandleDelete = potluck => {
-        axiosWithAuth()
-        .delete(`/api/potlucks/${potluck.id}`)
-        .then(res => {
-            console.log(res, "DELETE UpdateForm  RES <<<<<<<>>>>>>>")
-            props.setPotluck(res.data)
-            push("/potluckPage")
-        })
-        .catch(error =>{
-            console.log(error, "DELETE UpdateForm ERROR <<<<<<<>>>>>>>")
-        })
+    const HandleDelete = e => {
+      e.preventDefault();
+      axiosWithAuth()
+      .delete(`/api/potlucks/${potluck.id}`)
+      .then(res => {
+          console.log(res, "DELETE UpdateForm  RES <<<<<<<>>>>>>>")
+          props.setPotluckInfo(res.data)
+          history.push("/potluckPage")
+      })
+      .catch(error =>{
+          console.log(error, "DELETE UpdateForm ERROR <<<<<<<>>>>>>>")
+      })
 
     }
       
-      const clickToEdit = e => {
-        e.preventDefault();
-        push(`/potlucks/updateForm/${potluck.id}`)
-      }
+      // const clickToEdit = e => {
+      //   history.push(`/potlucks/updateForm/${potluck.id}`)
+      // }
 
     return (
         <div>Edit/Delete potluck
-          {potluck.map((potluckInfo) => {
-            return (
+          {/* {potluck.map((potluckInfo) => {
+            return ( */}
               <div>
-                <h3>{potluckInfo.locationName}</h3>
-                <p>{potluckInfo.locationAddress}</p>
-                <p>{potluckInfo.locationStreet}</p>
-                <p>{potluckInfo.locationCity}</p>
-                <p>{potluckInfo.locationState}</p>
-                <p>{potluckInfo.locationPostcode}</p>
-                <p>{potluckInfo.locationCountry}</p>
+                <h3>{potluck.locationName}</h3>
+                <p>{potluck.locationAddress}</p>
+                <p>{potluck.locationStreet}</p>
+                <p>{potluck.locationCity}</p>
+                <p>{potluck.locationState}</p>
+                <p>{potluck.locationPostcode}</p>
+                <p>{potluck.locationCountry}</p>
               </div>
-             )
+             {/* )
            })}
-        
-          <button onClick={clickToEdit}>Edit Potluck</button>
+         */}
+          <button onClick={() => history.push(`/potlucks/updateForm/${potluck.id}`)}>Edit Potluck</button>
           <button onClick={HandleDelete}>Delete Potluck</button>
         </div>
     )

@@ -34,7 +34,7 @@ text-align: center; */
 
 
 const initialPotluck = {
-     locationName: "",
+    locationName: "",
     locationAddress: "",
     locationStreet: "",
     locationCity: "",      
@@ -61,10 +61,10 @@ const UpdatePotluckForm = (props) => {
 
     useEffect(() => {
         axiosWithAuth()
-        .get(`/api/potlucks/${id}`)
+        .get(`/api/itemById/${id}`)
         .then(res => {
             console.log(res, "GET UpdateForm RES <<<<<<<>>>>>>>")
-            props.setEditPotluck(res.data)
+            setEditPotluck(res.data)
         })
         .catch(error => {
             console.log(error, " GET UpdateForm ERROR <<<<<<<>>>>>>>")
@@ -79,15 +79,13 @@ const UpdatePotluckForm = (props) => {
         .put(`/api/potlucks/${id}`, editPotluck)
         .then(res => {
             console.log(res, "PUT UpdateForm RRS  <<<<<<<>>>>>>>")
-            props.setEditPotluck(res.data)
-            push(`/potlucks/${id}`)
+            props.setPotluckInfo(res.data)//this updates state in APP component
+            push(`/potluckPage/${id}`)
         })
         .catch(error => {
             console.log(error, "PUT UpdateForm ERROPR <<<<<<<>>>>>>>")
         })
-        // history.push(`/api/potlucks/${id}`)
-
-    }
+   }
 
 
     return (

@@ -10,10 +10,13 @@ const PageContainer = styled.div`
 margin: 2rem;
 `
 const Nav = styled.nav`
-display: flex;
-width: 60%;
+padding: 10px;
+width: 200px;
 margin: auto;
-justify-content: space-around;
+text-decoration: none;
+border: 1px dashed black;
+background: #CBE2B0;
+border-radius: 2rem;
 `
 
 
@@ -24,7 +27,6 @@ const PotluckPage = () => {
     return (
         <div>
             <Nav>
-                <Link to="/">Home</Link>
                 <Link to="/potluckForm">Create New PotLuck</Link>
             </Nav>       
                 <PageContainer>

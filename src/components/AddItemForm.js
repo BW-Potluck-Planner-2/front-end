@@ -20,8 +20,10 @@ display: flex;
 justify-content: space-around;
 `
 const initialFoodItems = {
+    potluckId: "",
+    foodCategory: "",
     foodDescription: "",
-    serving: "",
+    servings: "",
 }
 
 const AddItemForm = (props) => {
@@ -37,17 +39,17 @@ const AddItemForm = (props) => {
 
     const handleSubmit = e => {
         const newFoodItems = {
+            "potluckId": foodItems.potluckId,
+            "foodCategory": foodItems.foodCategory,
             "foodDescription": foodItems.foodDescription,
-            "serving": foodItems.serving,
+            "servings": foodItems.servings,
         }
 
         e.preventDefault();
         axiosWithAuth()
         .post("/api/food", newFoodItems)
         .then(res => {
-            console.log(res, "Add Food Item Data...../// / / / ? ? ? ")
-            // props.history.push("/potluckPage")
-            
+            console.log(res, "Add Food Item Data...../// / / / ? ? ? ")           
         })
         .catch(error => {
             console.log(error.message, "food Item posting Error// / / / ? ? ? ")
@@ -59,7 +61,23 @@ const AddItemForm = (props) => {
         <ItemFormContainer> 
             <form onSubmit={handleSubmit}>
                 <label>
-                    <input placeholder="Name of Food"
+                    <input placeholder="Potluck ID"
+                        type="text"
+                        name="potluckId"
+                        value={foodItems.potluckId}
+                        onChange={handleChange}
+                    />                    
+                </label>
+                <label>
+                    <input placeholder="Food Category"
+                        type="text"
+                        name="foodCategory"
+                        value={foodItems.foodCategory}
+                        onChange={handleChange}
+                    />                    
+                </label>
+                <label>
+                    <input placeholder="Food Description"
                         type="text"
                         name="foodDescription"
                         value={foodItems.foodDescription}

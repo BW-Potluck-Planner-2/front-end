@@ -1,7 +1,7 @@
 import React, {useState,  useEffect} from "react";
 import styled from "styled-components"
-import {Link, Switch, Route} from "react-router-dom"
-import Potluck from './Potluck'
+import {Link} from "react-router-dom"
+// import Potluck from './Potluck'
 
 import { axiosWithAuth } from "../utils/axiosWithAuth"
 // import CreatePotluckForm from "./CreatePotluckForm"
@@ -13,42 +13,28 @@ margin: 1rem auto;
 `
 
 const CreatePotluckCard = (props) => {
-    const [ potluckInfo, setPotluckInfo ] = useState([])
-    console.log(potluckInfo, "Do We Have Potluck INfo here .........??????")
+    // const [ potluckInfo, setPotluckInfo ] = useState([])
+    // console.log(potluckInfo, "Do We Have Potluck INfo here .........??????")
 
-    useEffect(() => {
-        axiosWithAuth()
-        .get("/api/potlucks")
-        .then(res => {
-            console.log(res, " We have res data potluck Info.........")
-            setPotluckInfo(res.data)
-        })
-        .catch(error => {
-            console.log(error, " ? / ? not getting POTLUCK INFO.........")
-        })
-
-    }, [])
-
-    // const deletePotluck = potluck => {
+    // useEffect(() => {
     //     axiosWithAuth()
-    //     .delete(`/api/potlucks/${potluck.id}`)
+    //     .get("/api/potlucks")
     //     .then(res => {
-    //         console.log(res, "delete RES.............")
-    //         setPotluckInfo(potluckInfo.filter((potluckPot) => potluckPot.id !== potluck.id))
+    //         console.log(res, " We have res data potluck Info.........")
+    //         setPotluckInfo(res.data)
     //     })
-    //     .catch(error =>{
-    //         console.log(error, "delete ERROR.............")
+    //     .catch(error => {
+    //         console.log(error, " ? / ? not getting POTLUCK INFO.........")
     //     })
-    // }
 
+    // }, [])
 
     return (
         <div>
             {/* <CreatePotluckForm/> */}
-            <Switch>
-                <Route exact path={'/potluckPage'}>
+
                 <div>Potluck
-                    {potluckInfo.map((potluck) => {
+                    {props.potluckInfo.map((potluck) => {
                         return (
                             <PotluckContainer key={potluck.id}>
                                 <Link to={`/potluckPage/${potluck.id}`}>
@@ -68,11 +54,7 @@ const CreatePotluckCard = (props) => {
                     <AddGuestCard/>  */}
                     {/* <button onClick={deletePotluck}>Delete potluck</button> */}
                 </div>
-                </Route>
-                {/* <Route exact path={`/potluckPage/${potluck.id}`}>
-                    <Potluck/>
-                </Route> */}
-                </Switch>
+
         </div>
     )
 }

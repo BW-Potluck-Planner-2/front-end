@@ -6,11 +6,14 @@ export default styled.div`
         margin: 2rem auto;
         background: #FAEBD7;
         border: 2px dashed black;
+        box-shadow: 0 0 15px 20px #FFC0CB
+;
         }
     form h2{
         text-align: center;
         padding: 3% 0;
         font-family: 'Architects Daughter', cursive;
+        text-shadow: 2px 2px 2px #888;
     }
     label{
         width: 60%;
@@ -25,6 +28,7 @@ export default styled.div`
         &:hover{
             background: green;
             color: white;
+            box-shadow: 0 0 5px 2px green;
 
         }
     }
