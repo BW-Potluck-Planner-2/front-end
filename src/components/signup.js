@@ -6,14 +6,14 @@ const Signup = (props) =>{
     const {
         values,
         onInputChange,
-        onSubmit,
+        submitSignupInfo,
         disabled,
         errors,
     } = props
-
+console.log(props, "0000000000000000")
     return (
         <Styles>
-            <form onSubmit={onSubmit}>
+            <form onSubmit={submitSignupInfo}>
                 <h2>Sign Up Information</h2>
                 <p className='error'>{errors.firstName}</p>
                 <label>First Name:
@@ -25,7 +25,7 @@ const Signup = (props) =>{
                     placeholder='First Name'
                     />
                 </label><br/>
-                <p></p>
+                <p className='error'>{errors.lastName}</p>
                 <label>Last Name:
                     <input
                     value={values.lastName}
@@ -56,7 +56,10 @@ const Signup = (props) =>{
                     />
                 </label>
                 <div className='bttn'>
-                    <button disabled={disabled} className='submit'>Submit</button>
+                    <Link to="login">
+                        <button disabled={disabled} className='submit'>Submit</button>
+                    </Link>
+                    
                     <Link to='/login'><button>Already have an account?</button></Link>
                 </div>
             </form>

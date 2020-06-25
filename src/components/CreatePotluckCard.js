@@ -5,9 +5,9 @@ import { axiosWithAuth } from "../utils/axiosWithAuth"
 // import CreatePotluckForm from "./CreatePotluckForm"
 
 const PotluckContainer = styled.div`
-/* border: 1px solid gray;
+border: 1px solid gray;
 width : 70%;
-margin: auto; */
+margin: 1rem auto;
 `
 
 const CreatePotluckCard = (props) => {
@@ -27,40 +27,40 @@ const CreatePotluckCard = (props) => {
 
     }, [])
 
-    const deletePotluck = potluck => {
-        axiosWithAuth()
-        .delete(`/api/potlucks/${potluck.id}`)
-        .then(res => {
-            console.log(res, "delete RES.............")
-            setPotluckInfo(potluckInfo.filter((potluckPot) => potluckPot.id !== potluck.id))
-        })
-        .catch(error =>{
-            console.log(error, "delete ERROR.............")
-        })
-    }
+    // const deletePotluck = potluck => {
+    //     axiosWithAuth()
+    //     .delete(`/api/potlucks/${potluck.id}`)
+    //     .then(res => {
+    //         console.log(res, "delete RES.............")
+    //         setPotluckInfo(potluckInfo.filter((potluckPot) => potluckPot.id !== potluck.id))
+    //     })
+    //     .catch(error =>{
+    //         console.log(error, "delete ERROR.............")
+    //     })
+    // }
 
 
     return (
         <div>
             {/* <CreatePotluckForm/> */}
-                <PotluckContainer>Potluck
+                <div>Potluck
                     {potluckInfo.map((potluck) => {
                         return (
-                            <div key={potluck.id}>
+                            <PotluckContainer key={potluck.id}>
                                 <h3>Potluck Name: {potluck.locationName} </h3>
                                 <p>Block Number: {potluck.locationAddress} </p>
                                 <p>Street: {potluck.locationStreet} </p>
                                 <p>City: {potluck.locationCity} </p>
                                 <p>State: {potluck.locationState} </p>
-                                <p>Postal Code: {potluck.locationPostCode} </p>
+                                <p>Postal Code: {potluck.locationPostcode} </p>
                                 <p>Country: {potluck.locationCountry} </p>
-                            </div>
+                            </PotluckContainer>
                         )})
                     }
                      {/* <AddItemCard/>
                     <AddGuestCard/>  */}
                     {/* <button onClick={deletePotluck}>Delete potluck</button> */}
-                </PotluckContainer>
+                </div>
         </div>
     )
 }

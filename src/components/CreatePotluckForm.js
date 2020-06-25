@@ -33,93 +33,101 @@ text-align: center; */
 
 
 const initialPotluckInfo = {
-    id: Date.now(),
-    locationName: "",
-    locationAddress: "",
-    locationStreet: "",
-    locationCity: "",      
-    locationState: "",
-    locationPostCode: "",
-    locationCountry: "",
+    "locationName": "",
+    "locationAddress": "",
+    "locationStreet": "",
+    "locationState": "",
+    "locationCity": "",  
+    "locationCountry": "",
+    "locationPostcode": "",
 }
 
 const CreatePotluckForm = (props) => {
     console.log(props, "PpPpPpRrRrRrOoOoOoPpPpPpSsSsSs")
-const [ newPotLuckInfo, setNewPotLuckInfo ] = useState(initialPotluckInfo)
-console.log(newPotLuckInfo, " O o o o o O O O O o o o o")
+    const [ newPotLuckInfo, setNewPotLuckInfo ] = useState(initialPotluckInfo)
+    console.log(newPotLuckInfo, " O o o o o O O O O o o o o")
 
-const handleChange = e => {
-    setNewPotLuckInfo({
-        ...newPotLuckInfo,
-        [e.target.name]: e.target.value,
-    })
-}
+    const handleChange = e => {
+        setNewPotLuckInfo({
+            ...newPotLuckInfo,
+            [e.target.name]: e.target.value,
+        })
+    }
 
-const handleSubmit = e => {
-    e.preventDefault();
-    axiosWithAuth()
-    .post("/api/potlucks", newPotLuckInfo)
-    .then(res => {
-        console.log(res, "great! ! ! ! ! !  we have response")
-        // props.history.push("/addItemPage")
+    const handleSubmit = e => {
+        const newPotluck = {
+            "locationName": newPotLuckInfo.locationName,
+            "locationAddress": newPotLuckInfo.locationAddress,
+            "locationStreet": newPotLuckInfo.locationStreet,
+            "locationState": newPotLuckInfo.locationState,
+            "locationCity": newPotLuckInfo.locationCity,
+            "locationCountry": newPotLuckInfo.locationCountry,
+            "locationPostcode": newPotLuckInfo.locationPostcode,
+        };
+
+        console.log(newPotluck, "NewPotluck data @ @ @ @ @ @ @ @ @ @")
+        e.preventDefault();
+        axiosWithAuth()
+        .post("/api/potlucks", newPotluck)
+        .then(res => {
+            console.log(res, "great! ! ! ! ! !  we have response")
+            // localStorage.setItem("token", res.data.authToken)
+        })
+        .catch(error => {
+            console.log(error.message, " Should Not get error!! fix it and get res :-(")
+        })
         setNewPotLuckInfo(initialPotluckInfo)
 
-    })
-    .catch(error => {
-        console.log(error, " Should Not get error!! fix it and get res :-(")
-    })
-
-
-}
+    }
     return (
         <FormContainer>
             <Form onSubmit={handleSubmit}>
                 <label>Potluck Name
                     <input  type= "text"
                             name= "locationName"
-                            value= {props.locationName}
+                            value= {newPotLuckInfo.locationName}
                             onChange = {handleChange}
                     /> </label>
                 <label>Block No
-                    <input  type= "number"
+                    <input  type= "text"
                             name= "locationAddress"
-                            value= {props.locationAddress}
+                            value= {newPotLuckInfo.locationAddress}
                             onChange = {handleChange}
                     /> </label>
                 <label>Street
                     <input  type= "text"
                             name= "locationStreet"
-                            value= {props.locationStreet}
+                            value= {newPotLuckInfo.locationStreet}
                             onChange = {handleChange}
                     /> </label>
                 <label>City
                     <input  type= "text"
                             name= "locationCity"
-                            value= {props.locationCity}
+                            value= {newPotLuckInfo.locationCity}
                             onChange = {handleChange}
                     /> </label>
                 <label>State
                     <input  type= "text"
                             name= "locationState"
-                            value= {props.locationState}
+                            value= {newPotLuckInfo.locationState}
                             onChange = {handleChange}
                     /> </label>
                 <label>Postal Code
                     <input  type= "text"
-                            name= "locationPostCode"
-                            value= {props.locationPostCode}
+                            name= "locationPostcode"
+                            value= {newPotLuckInfo.locationPostcode}
                             onChange = {handleChange}
                     /> </label>
                 <label>Country
                     <input  type= "text"
                             name= "locationCountry"
-                            value= {props.locationCountry}
+                            value= {newPotLuckInfo.locationCountry}
                             onChange = {handleChange}
                     /> </label>
                 <Button>Submit</Button>
             </Form>
             <div>
-                <CreatePotluckCard/>
+                <CreatePotluckCard />
                 <Link to="/itemForm">Now, Please Go To Add Food</Link>                
             </div>
             <LinkBag>
