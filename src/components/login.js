@@ -6,14 +6,15 @@ const Login = (props) =>{
     const {
         values,
         onInputChange,
-        onSubmit,
+        // onSubmit,
         disabled,
         errors,
+        submitLoginInfo,
     } = props
 
     return (
         <Styles>
-            <form onSubmit={onSubmit}>
+            <form onSubmit={submitLoginInfo}>
                 <h2>Login Information</h2>
                 <p className='error'>{errors.email}</p>
                 <label>Email:

@@ -27,17 +27,17 @@ const CreatePotluckCard = (props) => {
 
     }, [])
 
-    const deletePotluck = potluck => {
-        axiosWithAuth()
-        .delete(`/api/potlucks/${potluck.id}`)
-        .then(res => {
-            console.log(res, "delete RES.............")
-            setPotluckInfo(potluckInfo.filter((potluckPot) => potluckPot.id !== potluck.id))
-        })
-        .catch(error =>{
-            console.log(error, "delete ERROR.............")
-        })
-    }
+    // const deletePotluck = potluck => {
+    //     axiosWithAuth()
+    //     .delete(`/api/potlucks/${potluck.id}`)
+    //     .then(res => {
+    //         console.log(res, "delete RES.............")
+    //         setPotluckInfo(potluckInfo.filter((potluckPot) => potluckPot.id !== potluck.id))
+    //     })
+    //     .catch(error =>{
+    //         console.log(error, "delete ERROR.............")
+    //     })
+    // }
 
 
     return (
@@ -52,7 +52,7 @@ const CreatePotluckCard = (props) => {
                                 <p>Street: {potluck.locationStreet} </p>
                                 <p>City: {potluck.locationCity} </p>
                                 <p>State: {potluck.locationState} </p>
-                                <p>Postal Code: {potluck.locationPostCode} </p>
+                                <p>Postal Code: {potluck.locationPostcode} </p>
                                 <p>Country: {potluck.locationCountry} </p>
                             </div>
                         )})

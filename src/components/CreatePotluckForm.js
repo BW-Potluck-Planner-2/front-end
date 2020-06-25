@@ -33,14 +33,13 @@ text-align: center; */
 
 
 const initialPotluckInfo = {
-    id: Date.now(),
     locationName: "",
     locationAddress: "",
     locationStreet: "",
-    locationCity: "",      
     locationState: "",
-    locationPostCode: "",
+    locationCity: "",  
     locationCountry: "",
+    locationPostCode: "",
 }
 
 const CreatePotluckForm = (props) => {
@@ -56,19 +55,27 @@ const handleChange = e => {
 }
 
 const handleSubmit = e => {
+    const newPotluck = {
+        locationName: newPotLuckInfo.locationName,
+        locationAddress: newPotLuckInfo.locationAddress,
+        locationStreet: newPotLuckInfo.locationStreet,
+        locationState: newPotLuckInfo.locationState,
+        locationCity: newPotLuckInfo.locationCity,
+        locationCountry: newPotLuckInfo.locationCountry,
+        locationPostcode: newPotLuckInfo.locationPostcode,
+    };
+    console.log(newPotluck, "NewPotluck data @ @ @ @ @ @ @ @ @ @")
     e.preventDefault();
     axiosWithAuth()
-    .post("/api/potlucks", newPotLuckInfo)
+    .post("/api/potlucks", newPotluck)
     .then(res => {
         console.log(res, "great! ! ! ! ! !  we have response")
         // props.history.push("/addItemPage")
-        setNewPotLuckInfo(initialPotluckInfo)
-
     })
     .catch(error => {
         console.log(error, " Should Not get error!! fix it and get res :-(")
     })
-
+ setNewPotLuckInfo(initialPotluckInfo)
 
 }
     return (
@@ -106,8 +113,8 @@ const handleSubmit = e => {
                     /> </label>
                 <label>Postal Code
                     <input  type= "text"
-                            name= "locationPostCode"
-                            value= {props.locationPostCode}
+                            name= "locationPostcode"
+                            value= {props.locationPostcode}
                             onChange = {handleChange}
                     /> </label>
                 <label>Country
