@@ -1,6 +1,7 @@
 import React, { useState} from "react"
 import { Link } from "react-router-dom";
 import styled from "styled-components"
+import LinkContianer from './buttonstyle'
 
 import CreatePotluckCard from "./CreatePotluckCard"
 import { axiosWithAuth } from "../utils/axiosWithAuth"
@@ -127,15 +128,11 @@ const CreatePotluckForm = (props) => {
             </Form>
             <div>
                 <CreatePotluckCard />
-                <Link to="/itemForm">Now, Please Go To Add Food</Link>                
+                <LinkContianer><Link to="/itemForm" style={{textDecoration: "none", color: "black"}}>Now, Please Go To Add Food</Link></LinkContianer>                
             </div>
             <LinkBag>
-                <div>
-                    <Link to="/potluckForm">Go To Potluck Form</Link>
-                </div>
-                <div>
-                    <Link to="/potluckPage">Go To Potluck Page</Link> 
-                </div>
+                <LinkContianer><Link to="/potluckForm" style={{textDecoration: "none", color: "black"}}>Go To Potluck Form</Link></LinkContianer>
+                <LinkContianer><Link to="/potluckPage" style={{textDecoration: "none", color: "black"}}>Go To Potluck Page</Link></LinkContianer> 
             </LinkBag>
 
         </FormContainer>

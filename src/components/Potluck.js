@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {  useHistory } from "react-router-dom";
+import Button from './buttonstyle'
 
 import {axiosWithAuth} from "../utils/axiosWithAuth"
 
@@ -70,8 +71,8 @@ const Potluck = (props) => {
              {/* )
            })}
          */}
-          <button onClick={() => history.push(`/potlucks/updateForm/${potluck.id}`)}>Edit Potluck</button>
-          <button onClick={HandleDelete}>Delete Potluck</button>
+          <Button onClick={() => history.push(`/potlucks/updateForm/${potluck.id}`)}>Edit Potluck</Button>
+          <Button onClick={HandleDelete}>Delete Potluck</Button>
         </div>
     )
 }
