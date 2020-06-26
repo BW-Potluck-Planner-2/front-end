@@ -4,7 +4,7 @@ import {  useHistory } from "react-router-dom";
 import {axiosWithAuth} from "../utils/axiosWithAuth"
 
 const Potluck = (props) => {
-    console.log(props, " What's in the Props:;:;:;:;:;:;:;:;:;:;:;:;:;:;")
+    console.log(props, " What's in the Props This is potluck component:;:;:;:;:;:;:;:;:;:;:;:;:;:;")
 
     // const [potluck, setPotluck] = useState([{
     //   locationName: "",
@@ -21,6 +21,11 @@ const Potluck = (props) => {
     const potluck = props.potluckInfo.find(
       thing => `${thing.id}` === props.match.params.id
     );
+    console.log(potluck, ")O)O)O)O)O)O)O)O)O)O")
+
+    if (!props.potluckInfo.length || !potluck) {
+      return <h2>Loading potluck data...</h2>;
+    }
 
       // useEffect(() => {
       //   axiosWithAuth()

@@ -1,6 +1,8 @@
-import React from "react"
+import React, {useState, useEffect} from "react"
 import { Link } from "react-router-dom";
 import styled from "styled-components"
+
+import { axiosWithAuth } from "../utils/axiosWithAuth"
 
 import CreatePotluckCard from "./CreatePotluckCard"
 import AddItemCard from "./AddItemCard"
@@ -34,8 +36,23 @@ border-radius: 2rem;
 
 
 const PotluckPage = (props) => {
-console.log(props, "Potluck Page Props ..........")
+console.log(props, " Props PotluckPage  ..........")
 
+const [ potluckInfo, setPotluckInfo ] = useState([])
+console.log(potluckInfo, " PotluckINfo here in PotluckPage X x X x X .................")
+
+useEffect(() => {
+    axiosWithAuth()
+    .get("/api/potlucks")
+    .then(res => {
+        console.log(res, " PotluckPage res data .........")
+        setPotluckInfo(res.data)
+    })
+    .catch(error => {
+        console.log(error, " APP error.........")
+    })
+
+}, [])
 
     return (
         <PotluckPageContainer>
@@ -44,7 +61,7 @@ console.log(props, "Potluck Page Props ..........")
             </Nav>       
                 <PageContainer>
                    
-                    <CreatePotluckCard potluckInfo={props.potluckInfo}/>
+                    <CreatePotluckCard potluckInfo={potluckInfo}/>
                     
                     <AddItemCard/>
                     <AddGuestCard/>            
