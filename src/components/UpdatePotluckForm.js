@@ -8,12 +8,16 @@ import { axiosWithAuth } from "../utils/axiosWithAuth"
 
 
 const UpdateFormContainer = styled.div`
+padding:2rem;
  width: 70%;
  height: 100%;
- margin: auto;
+ margin: 2rem auto;
  display: flex;
  flex-direction: column;
  border: 1px solid gray;
+ background: #FFB6C1;
+ box-shadow: 0 0 15px 20px #FFC0CB;
+ font-family:'Architects Daughter', cursive;
 `
 const Form = styled.form`
 display: flex;
@@ -23,6 +27,12 @@ margin: 1rem auto;
 const Button = styled.button`
 width: 200px;
 margin: 1rem auto;
+border-radius:1rem;
+background: #CBE2B0;
+&:hover{
+      background: #CBE2B0;
+      box-shadow: 0 0 5px 2px green;
+   }
 `
 const LinkBag = styled.div`
 margin: 2rem;
@@ -30,6 +40,17 @@ display: flex;
 justify-content: space-around;
 /* width: auto;
 text-align: center; */
+`
+const LinkContainer = styled.div`
+  margin: 1rem auto;
+  padding: 2px 10px;
+  background-color: #CBE2B0;
+  border: 1px dashed black;
+  border-radius: 12px;
+  &:hover{
+      background: green;
+      box-shadow: 0 0 5px 2px green;
+   }
 `
 
 
@@ -46,10 +67,11 @@ const initialPotluck = {
 const UpdatePotluckForm = (props) => {
     console.log(props, "W H A T   W E  H A V E   H E R E ? ? ? ")
 
-    const { push } = useHistory();
+    const history = useHistory();
     const {id} = useParams();
+    console.log(id, "999999999999999999999999999999999999")
 
-    const [ editPotluck, setEditPotluck ] = useState(initialPotluck)
+    const [ editPotluck, setEditPotluck ] = useState({})
     console.log(editPotluck, " {{{{{{[[{{{{ o o o o O O O O o o o o}}}}]]}}}}}}")
 
     const handleChange = e => {
@@ -61,7 +83,7 @@ const UpdatePotluckForm = (props) => {
 
     useEffect(() => {
         axiosWithAuth()
-        .get(`/api/itemById/${id}`)
+        .get(`/api/potlucks/potluckById/${id}`)
         .then(res => {
             console.log(res, "GET UpdateForm RES <<<<<<<>>>>>>>")
             setEditPotluck(res.data)
@@ -76,20 +98,23 @@ const UpdatePotluckForm = (props) => {
     const updateHandleSubmit = e => {
         e.preventDefault();
         axiosWithAuth()
-        .put(`/api/potlucks/${id}`, editPotluck)
+        .put(`/api/putlucks/${id}`, editPotluck)
         .then(res => {
             console.log(res, "PUT UpdateForm RRS  <<<<<<<>>>>>>>")
+
             props.setPotluckInfo(res.data)//this updates state in APP component
-            push(`/potluckPage/${id}`)
+            
         })
         .catch(error => {
             console.log(error, "PUT UpdateForm ERROPR <<<<<<<>>>>>>>")
         })
+        history.push(`/potluckPage/${id}`)
    }
 
 
     return (
-        <UpdateFormContainer>
+        <UpdateFormContainer> 
+            <h2>Update Potluck</h2>
             <Form onSubmit={updateHandleSubmit}>
                 <label>Potluck Name
                     <input  type= "text"
@@ -135,21 +160,21 @@ const UpdatePotluckForm = (props) => {
                     /> </label>
                 <Button >Update</Button>
             </Form>
+            {/* <LinkBag>
+                 <LinkContainer>
+                    <Link to="/itemForm" style={{textDecoration: "none", color: "black"}}> Go To Add Food</Link>                
+                </LinkContainer>
             
-            <div>
-                <Link to="/itemForm">Now, Please Go To Add Food</Link>                
-            </div>
-            <LinkBag>
-                <div>
-                    <Link to="/potluckForm">Go To Potluck Form</Link>
-                </div>
-                <div>
-                    <Link to="/itemForm"> Go To Item Form</Link>
-                </div>
-                <div>
-                    <Link to="/potluckPage">Go To Potluck Page</Link> 
-                </div>
-            </LinkBag>
+                <LinkContainer>
+                    <Link to="/potluckForm" style={{textDecoration: "none", color: "black"}}>Go To Potluck Form</Link>
+                </LinkContainer>
+                <LinkContainer>
+                    <Link to="/itemForm" style={{textDecoration: "none", color: "black"}}> Go To Item Form</Link>
+                </LinkContainer>
+                <LinkContainer>
+                    <Link to="/potluckPage" style={{textDecoration: "none", color: "black"}}>Go To Potluck Page</Link> 
+                </LinkContainer>
+            </LinkBag> */}
 
         </UpdateFormContainer>
     )

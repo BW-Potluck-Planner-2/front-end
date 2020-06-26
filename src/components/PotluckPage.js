@@ -38,21 +38,21 @@ border-radius: 2rem;
 const PotluckPage = (props) => {
 console.log(props, " Props PotluckPage  ..........")
 
-const [ potluckInfo, setPotluckInfo ] = useState([])
-console.log(potluckInfo, " PotluckINfo here in PotluckPage X x X x X .................")
+// const [ potluckInfo, setPotluckInfo ] = useState([])
+// console.log(potluckInfo, " PotluckINfo here in PotluckPage X x X x X .................")
 
-useEffect(() => {
-    axiosWithAuth()
-    .get("/api/potlucks")
-    .then(res => {
-        console.log(res, " PotluckPage res data .........")
-        setPotluckInfo(res.data)
-    })
-    .catch(error => {
-        console.log(error, " APP error.........")
-    })
+// useEffect(() => {
+//     axiosWithAuth()
+//     .get("/api/potlucks")
+//     .then(res => {
+//         console.log(res, " PotluckPage res data .........")
+//         setPotluckInfo(res.data)
+//     })
+//     .catch(error => {
+//         console.log(error, " APP error.........")
+//     })
 
-}, [])
+// }, [])
 
     return (
         <PotluckPageContainer>
@@ -61,7 +61,7 @@ useEffect(() => {
             </Nav>       
                 <PageContainer>
                    
-                    <CreatePotluckCard potluckInfo={potluckInfo}/>
+                    <CreatePotluckCard potluckInfo={props.potluckInfo}/>
                     
                     <AddItemCard/>
                     <AddGuestCard/>            

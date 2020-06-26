@@ -249,7 +249,7 @@ function App(props) {
           <LinkContainer><Link to="/potluckPage" style={{textDecoration: "none", color: "black"}} >Go To Potluck Page</Link></LinkContainer>
           <LinkContainer><Link to="/login" style={{textDecoration: "none", color: "black"}}>Login</Link></LinkContainer>
           <LinkContainer><Link to="/register" style={{textDecoration: "none", color: "black"}}>Register</Link></LinkContainer>
-          <LinkContainer ><Link to="https://objective-gates-8326a1.netlify.app/index.html" style={{textDecoration: "none", color: "black"}}> Home </Link> </LinkContainer>
+          <LinkContainer ><a href="https://objective-gates-8326a1.netlify.app/index.html" style={{textDecoration: "none", color: "black"}}> Home </a> </LinkContainer>
            
         </Navigator>
 
@@ -272,7 +272,7 @@ function App(props) {
           <PrivateRoute exact path="/potluckForm" component={CreatePotluckForm}/>
           <PrivateRoute exact path="/itemForm" component={AddItemForm}/>
           <PrivateRoute exact path="/guestForm" component={AddGuestForm}/>
-          <PrivateRoute exact path="/potluckPage" component={PotluckPage}/>
+          <PrivateRoute exact path="/potluckPage"><PotluckPage potluckInfo={potluckInfo}/> </PrivateRoute>
           <Route  exact path="/potluckPage/updateForm/:id" render={props => <UpdatePotluckForm {...props} setPotluckInfo={setPotluckInfo}/>} />
           {/* <PrivateRoute exact path="/potluckPage/updateForm/:id"> <UpdatePotluckForm setPotluckInfo={setPotluckInfo} /></PrivateRoute> */}
           <Route  exact Path="/potluckPage/:id"  render={props => <Potluck {...props} potluckInfo={potluckInfo} setPotluckInfo={setPotluckInfo}/>} /> 

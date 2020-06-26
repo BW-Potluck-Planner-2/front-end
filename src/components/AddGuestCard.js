@@ -27,6 +27,7 @@ useEffect(() => {
                     {guest.map((newGuest) => {
                         return (
                             <div>
+                                <p>Potluck ID: {newGuest.potluckId}</p>
                                 <p>Role:{newGuest.role}</p>
                                 <p>Email:{newGuest.email}</p>
                             </div>

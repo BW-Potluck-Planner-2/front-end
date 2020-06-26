@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { axiosWithAuth } from "../utils/axiosWithAuth"
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import styled from "styled-components"
 
 import AddItemCard from "./AddItemCard"
@@ -35,14 +35,27 @@ const LinkContainer = styled.div`
       box-shadow: 0 0 5px 2px green;
    }
 `
+const Button = styled.button`
+width: 200px;
+margin: 1rem auto;
+border-radius:1rem;
+background: #CBE2B0;
+&:hover{
+      background: #CBE2B0;
+      box-shadow: 0 0 5px 2px green;
+   }
+`
+
 const initialFoodItems = {
-    potluckId: "",
+    potluckId: Date.now(),
     foodCategory: "",
     foodDescription: "",
     servings: "",
 }
 
 const AddItemForm = (props) => {
+
+    const {id} = useParams();
     const [ foodItems, setFoodItems ] = useState(initialFoodItems);
     console.log(foodItems, "foodItem data ! ! ! ! ! ! ! !")
 
@@ -55,7 +68,7 @@ const AddItemForm = (props) => {
 
     const handleSubmit = e => {
         const newFoodItems = {
-            "potluckId": foodItems.potluckId,
+            "potluckId": Date.now(),
             "foodCategory": foodItems.foodCategory,
             "foodDescription": foodItems.foodDescription,
             "servings": foodItems.servings,
@@ -63,14 +76,15 @@ const AddItemForm = (props) => {
 
         e.preventDefault();
         axiosWithAuth()
-        .post("/api/food", newFoodItems)
+        .post(`/api/potlucks/reqs/${id}`, newFoodItems)
         .then(res => {
-            console.log(res, "Add Food Item Data...../// / / / ? ? ? ")           
+            console.log(res, "Add Food Item Data...../// / / / ? ? ? ")
+            setFoodItems(initialFoodItems)           
         })
         .catch(error => {
             console.log(error.message, "food Item posting Error// / / / ? ? ? ")
         })
-        setFoodItems(initialFoodItems)
+        
     }
 
     return (
@@ -109,7 +123,7 @@ const AddItemForm = (props) => {
                         onChange={handleChange}
                     />                    
                 </label>
-                <button> Add Food</button>
+                <Button> Add Food</Button>
             </form>
             <div>
                 <AddItemCard/>

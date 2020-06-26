@@ -35,10 +35,19 @@ const LinkContainer = styled.div`
       box-shadow: 0 0 5px 2px green;
    }
 `
-
+const Button = styled.button`
+width: 200px;
+margin: 1rem auto;
+border-radius:1rem;
+background: #CBE2B0;
+&:hover{
+      background: #CBE2B0;
+      box-shadow: 0 0 5px 2px green;
+   }
+`
 
 const initialGestInfo = {
-    potluckId: "",
+    potluckId: Date.now(),
     role: "",
     email: "",
 }
@@ -57,7 +66,7 @@ console.log(addGuest, "addGuestForm data /////////////////")
 
     const GuestHandleSubmit = e => {
         const newGuestInfo = {
-            potluckId: addGuest.potluckId,
+            potluckId: Date.now(),
             role: addGuest.role,
             email: addGuest.email,
         }
@@ -77,8 +86,8 @@ console.log(addGuest, "addGuestForm data /////////////////")
     return (
         <GuestFormContainer> 
             <form onSubmit={GuestHandleSubmit}>
-                <label>
-                    <input placeholder="Potluck ID"
+                <label>Potluck ID
+                    <input 
                         type="number"
                         name="potluckId"
                         value={addGuest.potluckId}
@@ -101,7 +110,7 @@ console.log(addGuest, "addGuestForm data /////////////////")
                         onChange={GuestHandleChange}
                     /> </label>
 
-                <button> Add Guest</button>
+                <Button> Add Guest</Button>
             </form>
             <GuestCard>
                 <AddGuestCard/>
