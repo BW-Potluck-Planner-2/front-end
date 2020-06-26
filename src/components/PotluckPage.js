@@ -1,6 +1,7 @@
 import React from "react"
 import { Link } from "react-router-dom";
 import styled from "styled-components"
+import LinkContianer from './buttonstyle'
 
 import CreatePotluckCard from "./CreatePotluckCard"
 import AddItemCard from "./AddItemCard"
@@ -40,7 +41,11 @@ console.log(props, "Potluck Page Props ..........")
     return (
         <PotluckPageContainer>
             <Nav>
+<<<<<<< HEAD
                 <Link to="/potluckForm" style={{textDecoration: "none", color: "black"}}>Create New PotLuck</Link>
+=======
+                <LinkContianer><Link to="/potluckForm"  style={{textDecoration: "none", color: "black"}}>Create New PotLuck</Link></LinkContianer>
+>>>>>>> 6e85a1780f143c5f4f3e184603f9adef862a32b2
             </Nav>       
                 <PageContainer>
                    
