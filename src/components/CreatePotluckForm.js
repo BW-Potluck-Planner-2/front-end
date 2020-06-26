@@ -7,17 +7,21 @@ import { axiosWithAuth } from "../utils/axiosWithAuth"
 
 
 const FormContainer = styled.div`
+ padding:2rem;
  width: 70%;
  height: 100%;
- margin: auto;
+ margin: 2rem auto;
  display: flex;
  flex-direction: column;
  border: 1px solid gray;
+ background: #FFB6C1;
+ box-shadow: 0 0 15px 20px #FFC0CB;
 `
 const Form = styled.form`
 display: flex;
 flex-direction: column;
 margin: 1rem auto;
+background: #FFB6C1;
 `
 const Button = styled.button`
 width: 100px;
@@ -29,6 +33,17 @@ display: flex;
 justify-content: space-around;
 /* width: auto;
 text-align: center; */
+`
+const LinkContainer = styled.div`
+  margin: 1rem auto;
+  padding: 2px 10px;
+  background-color: #CBE2B0;
+  border: 1px dashed black;
+  border-radius: 12px;
+  &:hover{
+      background: green;
+      box-shadow: 0 0 5px 2px green;
+   }
 `
 
 
@@ -127,15 +142,20 @@ const CreatePotluckForm = (props) => {
             </Form>
             <div>
                 <CreatePotluckCard />
-                <Link to="/itemForm">Now, Please Go To Add Food</Link>                
+                <LinkContainer>
+                    <Link to="/itemForm" style={{textDecoration: "none", color: "black"}}>
+                        Now, Please Go To Add Food</Link>                
+                </LinkContainer>
             </div>
             <LinkBag>
-                <div>
-                    <Link to="/potluckForm">Go To Potluck Form</Link>
-                </div>
-                <div>
-                    <Link to="/potluckPage">Go To Potluck Page</Link> 
-                </div>
+                <LinkContainer>
+                    <Link to="/potluckForm" style={{textDecoration: "none", color: "black"}}>
+                        Go To Potluck Form</Link>
+                </LinkContainer>
+                <LinkContainer>
+                    <Link to="/potluckPage" style={{textDecoration: "none", color: "black"}}>
+                        Go To Potluck Page</Link> 
+                </LinkContainer>
             </LinkBag>
 
         </FormContainer>

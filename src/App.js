@@ -23,11 +23,12 @@ import Potluck from "./components/Potluck"
 
 const Navigator = styled.nav`
 display: flex;
+background: #F4A460;
+border-top: 1px dashed black;
 `
 const LinkContainer = styled.div`
   margin: 1rem auto;
   padding: 2px 10px;
-  /* text-decoration: none; */
   background-color: #CBE2B0;
   border: 1px dashed black;
   border-radius: 12px;

@@ -6,10 +6,15 @@ import styled from "styled-components"
 import AddItemCard from "./AddItemCard"
 
 const ItemFormContainer = styled.div`
-border: 1px solid gray;
-width: 70%;
-margin: 2rem auto;
-height: auto;
+padding:2rem;
+ width: 70%;
+ height: 100%;
+ margin: 2rem auto;
+ display: flex;
+ flex-direction: column;
+ border: 1px solid gray;
+ background: #FFB6C1;
+ box-shadow: 0 0 15px 20px #FFC0CB;
 `
 const ItemCard = styled.div`
 margin: 2rem;
@@ -18,6 +23,17 @@ const LinkBag = styled.div`
 margin: 2rem;
 display: flex;
 justify-content: space-around;
+`
+const LinkContainer = styled.div`
+  margin: 1rem auto;
+  padding: 2px 10px;
+  background-color: #CBE2B0;
+  border: 1px dashed black;
+  border-radius: 12px;
+  &:hover{
+      background: green;
+      box-shadow: 0 0 5px 2px green;
+   }
 `
 const initialFoodItems = {
     potluckId: "",
@@ -95,15 +111,22 @@ const AddItemForm = (props) => {
                 </label>
                 <button> Add Food</button>
             </form>
-
-            <ItemCard>
+            <div>
                 <AddItemCard/>
-                <Link to="/guestForm">Now, Please add Guests</Link>    
-            </ItemCard>
+                <LinkContainer>
+                    <Link to="/guestForm" style={{textDecoration: "none", color: "black"}}>
+                        Now, Please Add Guest</Link>                
+                </LinkContainer>               
+            </div>
             <LinkBag>
-                <Link to="/potluckForm">Go To Potluck Form</Link>
-                <Link to="/potluckPage">Go To Potluck Page</Link>
+                <LinkContainer>
+                    <Link to="/potluckForm" style={{textDecoration: "none", color: "black"}}>Go To Potluck Form</Link>
+                </LinkContainer>
+                <LinkContainer> 
+                    <Link to="/potluckPage" style={{textDecoration: "none", color: "black"}}>Go To Potluck Page</Link>
+                </LinkContainer>            
             </LinkBag>
+
         </ItemFormContainer>
     )
 }
