@@ -79,21 +79,21 @@ function App(props) {
   const [loginDisabled, setLoginDisabled] = useState(initialDisabled);
   // const [members, setMembers] = useState(initialMembers);
 
-  const [ potluckInfo, setPotluckInfo ] = useState([])
-  console.log(potluckInfo, "Do We Have Potluck INfo here .........??????")
+      const [ potluckInfo, setPotluckInfo ] = useState([])
+    console.log(potluckInfo, "Do We Have Potluck INfo here .........??????")
 
-  useEffect(() => {
-      axiosWithAuth()
-      .get("/api/potlucks")
-      .then(res => {
-          console.log(res, " We have res data potluck Info.........")
-          setPotluckInfo(res.data)
-      })
-      .catch(error => {
-          console.log(error, " ? / ? not getting POTLUCK INFO.........")
-      })
+    useEffect(() => {
+        axiosWithAuth()
+        .get("/api/potlucks")
+        .then(res => {
+            console.log(res, " APP res data potluckInfo.........")
+            setPotluckInfo(res.data)
+        })
+        .catch(error => {
+            console.log(error, " APP error.........")
+        })
 
-  }, [])
+    }, [])
 
   // let history = useHistory();
 
@@ -142,7 +142,7 @@ function App(props) {
     .then(res => {
       console.log(res, "postLogin res ()()()()()()()")
       localStorage.setItem("token", res.data.authToken)
-     props.history.push("/potluckPage")
+     window.location.assign("/potluckPage")
     })
     .catch(error => {
       console.log(error.message, "postLogin Error ()()()()()()")
@@ -271,14 +271,9 @@ function App(props) {
           <PrivateRoute exact path="/potluckForm" component={CreatePotluckForm}/>
           <PrivateRoute exact path="/itemForm" component={AddItemForm}/>
           <PrivateRoute exact path="/guestForm" component={AddGuestForm}/>
-
-          <PrivateRoute exact path="/potluckPage" 
-              render={() => <PotluckPage {...props} potluckInfo={potluckInfo}/>}/>
-          <PrivateRoute exact path="/potluckPage/updateForm/:id" 
-              render={() => <UpdatePotluckForm setPotluckInfo={setPotluckInfo}/>}/>
-          <PrivateRoute exact Path="/potluckPage/:id" 
-              render={() =><Potluck {...props} potluckInfo={potluckInfo} setPotluckInfo={setPotluckInfo}/>}/> 
-
+          <PrivateRoute exact path="/potluckPage">< PotluckPage {...props} potluckInfo={potluckInfo} setPotluckInfo={setPotluckInfo}/></PrivateRoute>
+          <PrivateRoute exact path="/potluckPage/updateForm/:id"> <UpdatePotluckForm setPotluckInfo={setPotluckInfo} /></PrivateRoute>
+          <PrivateRoute exact Path="/potluckPage/:id"><Potluck {...props} potluckInfo={potluckInfo} setPotluckInfo={setPotluckInfo}/> </PrivateRoute>
         </Switch>
       </div>      
     </Router>
@@ -287,3 +282,13 @@ function App(props) {
 }
 
 export default App;
+
+
+{/* <PrivateRoute exact path="/potluckPage" 
+render ={() => <PotluckPage {...props} potluckInfo={potluckInfo} setPotluckInfo={setPotluckInfo}/>}/>
+
+<PrivateRoute exact path="/potluckPage/updateForm/:id" 
+    render={() => <UpdatePotluckForm setPotluckInfo={setPotluckInfo}/>}/>
+
+<PrivateRoute exact Path="/potluckPage/:id" 
+    render={() =><Potluck {...props} potluckInfo={potluckInfo} setPotluckInfo={setPotluckInfo}/>}/> */}

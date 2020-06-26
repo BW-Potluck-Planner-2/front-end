@@ -67,15 +67,15 @@ const CreatePotluckForm = (props) => {
 
         console.log(newPotluck, "NewPotluck data @ @ @ @ @ @ @ @ @ @")
         e.preventDefault();
-        axiosWithAuth()
-        .post("/api/potlucks", newPotluck)
-        .then(res => {
-            console.log(res, "great! ! ! ! ! !  we have response")
-        })
-        .catch(error => {
-            console.log(error, " Should Not get error!! fix it and get res :-( ")
-        })
-        setNewPotLuckInfo(initialPotluckInfo)
+            axiosWithAuth()
+            .post("/api/potlucks", newPotluck)
+            .then(res => {
+                console.log(res, "great! ! ! ! ! !  we have response")
+            })
+            .catch(error => {
+                console.log(error, " Should Not get error!! fix it and get res :-( ")
+            })
+            setNewPotLuckInfo(initialPotluckInfo)
 
     }
     return (

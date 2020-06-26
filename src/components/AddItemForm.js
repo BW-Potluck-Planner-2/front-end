@@ -62,7 +62,7 @@ const AddItemForm = (props) => {
             <form onSubmit={handleSubmit}>
                 <label>
                     <input placeholder="Potluck ID"
-                        type="text"
+                        type="number"
                         name="potluckId"
                         value={foodItems.potluckId}
                         onChange={handleChange}

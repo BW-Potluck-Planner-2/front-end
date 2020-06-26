@@ -35,7 +35,7 @@ const Potluck = (props) => {
       //     })
       // }, []);
 
-    const HandleDelete = e => {
+    const handleDelete = e => {
       e.preventDefault();
       axiosWithAuth()
       .delete(`/api/potlucks/${potluck.id}`)
@@ -56,8 +56,7 @@ const Potluck = (props) => {
 
     return (
         <div>Edit/Delete potluck
-          {/* {potluck.map((potluckInfo) => {
-            return ( */}
+
               <div>
                 <h3>{potluck.locationName}</h3>
                 <p>{potluck.locationAddress}</p>
@@ -67,11 +66,9 @@ const Potluck = (props) => {
                 <p>{potluck.locationPostcode}</p>
                 <p>{potluck.locationCountry}</p>
               </div>
-             {/* )
-           })}
-         */}
-          <button onClick={() => history.push(`/potlucks/updateForm/${potluck.id}`)}>Edit Potluck</button>
-          <button onClick={HandleDelete}>Delete Potluck</button>
+  
+          <button onClick={() => history.push(`/potluckPage/updateForm/${potluck.id}`)}>Edit Potluck</button>
+          <button onClick={handleDelete}>Delete Potluck</button>
         </div>
     )
 }

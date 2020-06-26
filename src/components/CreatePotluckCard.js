@@ -10,31 +10,33 @@ const PotluckContainer = styled.div`
 border: 1px solid gray;
 width : 70%;
 margin: 1rem auto;
+font-family:'Architects Daughter', cursive;
 `
 
 const CreatePotluckCard = (props) => {
-    // const [ potluckInfo, setPotluckInfo ] = useState([])
-    // console.log(potluckInfo, "Do We Have Potluck INfo here .........??????")
+    console.log(props, "WWWWWWWWWWWWWWW")
+    const [ potluckInfo, setPotluckInfo ] = useState([])
+    console.log(potluckInfo, "Do We Have Potluck INfo here .........??????")
 
-    // useEffect(() => {
-    //     axiosWithAuth()
-    //     .get("/api/potlucks")
-    //     .then(res => {
-    //         console.log(res, " We have res data potluck Info.........")
-    //         setPotluckInfo(res.data)
-    //     })
-    //     .catch(error => {
-    //         console.log(error, " ? / ? not getting POTLUCK INFO.........")
-    //     })
+    useEffect(() => {
+        axiosWithAuth()
+        .get("/api/potlucks")
+        .then(res => {
+            console.log(res, " We have res data potluck Info.........")
+            setPotluckInfo(res.data)
+        })
+        .catch(error => {
+            console.log(error, " ? / ? not getting POTLUCK INFO.........")
+        })
 
-    // }, [])
+    }, [])
 
     return (
         <div>
             {/* <CreatePotluckForm/> */}
 
                 <div>Potluck
-                    {props.potluckInfo.map((potluck) => {
+                    {potluckInfo.map((potluck) => {
                         return (
                             <PotluckContainer key={potluck.id}>
                                 <Link to={`/potluckPage/${potluck.id}`}>

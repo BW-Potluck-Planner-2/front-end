@@ -46,11 +46,11 @@ const initialPotluck = {
 const UpdatePotluckForm = (props) => {
     console.log(props, "W H A T   W E  H A V E   H E R E ? ? ? ")
 
+    const { push } = useHistory();
+    const {id} = useParams();
+
     const [ editPotluck, setEditPotluck ] = useState(initialPotluck)
     console.log(editPotluck, " {{{{{{[[{{{{ o o o o O O O O o o o o}}}}]]}}}}}}")
-
-    const { push } = useHistory();
-    const {id} = useParams()
 
     const handleChange = e => {
         setEditPotluck({

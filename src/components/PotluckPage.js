@@ -20,8 +20,8 @@ border-radius: 2rem;
 `
 
 
-const PotluckPage = () => {
-
+const PotluckPage = (props) => {
+console.log(props, "Potluck Page Props ..........")
 
 
     return (
@@ -31,7 +31,7 @@ const PotluckPage = () => {
             </Nav>       
                 <PageContainer>
                    
-                        <CreatePotluckCard/>
+                    <CreatePotluckCard potluckInfo={props.potluckInfo}/>
                     
                     <AddItemCard/>
                     <AddGuestCard/>            

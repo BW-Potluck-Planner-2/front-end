@@ -20,6 +20,7 @@ display: flex;
 justify-content: space-around;
 `
 const initialGestInfo = {
+    potluckId: "",
     role: "",
     email: "",
 }
@@ -38,7 +39,7 @@ console.log(addGuest, "addGuestForm data /////////////////")
 
     const GuestHandleSubmit = e => {
         const newGuestInfo = {
-            potluckId: Date.now(),
+            potluckId: addGuest.potluckId,
             role: addGuest.role,
             email: addGuest.email,
         }
@@ -58,6 +59,14 @@ console.log(addGuest, "addGuestForm data /////////////////")
     return (
         <GuestFormContainer> 
             <form onSubmit={GuestHandleSubmit}>
+                <label>
+                    <input placeholder="Potluck ID"
+                        type="number"
+                        name="potluckId"
+                        value={addGuest.potluckId}
+                        onChange={GuestHandleChange}
+                    />                    
+                </label>
                 <label>Role:  
                 <input 
                         type="text"
