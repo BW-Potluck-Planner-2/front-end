@@ -1,66 +1,55 @@
-import React, {useState, useEffect}  from 'react';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import "./App.css";
 // import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 
-import * as yup from 'yup';
+import * as yup from "yup";
 // import axios from 'axios';
 // import { v4 as uuid } from 'uuid';
-import loginSchema from './components/formSchemalogin';
-import signupSchema from './components/formSchemaSignup';
+import loginSchema from "./components/formSchemalogin";
+import signupSchema from "./components/formSchemaSignup";
 
-import Login from "./components/login"
-import Signup from "./components/signup"
-import CreatePotluckForm from "./components/CreatePotluckForm"
-import AddItemForm from "./components/AddItemForm"
-import PotluckPage from "./components/PotluckPage"
-import AddGuestForm from "./components/AddGuestForm"
-import UpdatePotluckForm from "./components/UpdatePotluckForm"
-import { axiosWithAuth } from './utils/axiosWithAuth';
+import Login from "./components/login";
+import Signup from "./components/signup";
+import CreatePotluckForm from "./components/CreatePotluckForm";
+import AddItemForm from "./components/AddItemForm";
+import PotluckPage from "./components/PotluckPage";
+import AddGuestForm from "./components/AddGuestForm";
+import UpdatePotluckForm from "./components/UpdatePotluckForm";
+import { axiosWithAuth } from "./utils/axiosWithAuth";
 import PrivateRoute from "./utils/PrivateRoute";
-import Potluck from "./components/Potluck"
+import Potluck from "./components/Potluck";
 
-const Navigator = styled.nav`
-display: flex;
-background: #F4A460;
-border-top: 1px dashed black;
-`
-const LinkContainer = styled.div`
-  margin: 1rem auto;
-  padding: 2px 10px;
-  background-color: #CBE2B0;
-  border: 1px dashed black;
-  border-radius: 12px;
-  &:hover{
-      background: green;
-      box-shadow: 0 0 5px 2px green;
-   }
-`
+import Home from "./landingPageComponent/home.js";
+import HowItWorks from "./landingPageComponent/howItWorks.js";
+import Stories from "./landingPageComponent/stories.js";
+import AboutUs from "./landingPageComponent/aboutUs.js";
+import SuccessStories from "./landingPageComponent/successStories.js";
 
 const initialLoginValues = {
-  email: '',
-  password: '',
+  email: "",
+  password: "",
 };
 
 const initialSignupValues = {
-  firstName: '',
-  lastName: '',
-  email: '',
-  password: '',
+  firstName: "",
+  lastName: "",
+  email: "",
+  password: "",
 };
 
 const initialLoginErrors = {
-  email: '',
-  password: '',
+  email: "",
+  password: "",
 };
 
 const initialSignupErrors = {
-  firstName: '',
-  lastName: '',
-  email: '',
-  password: '',
-}
+  firstName: "",
+  lastName: "",
+  email: "",
+  password: "",
+};
 
 // const initialMembers = [];
 
@@ -80,21 +69,20 @@ function App(props) {
   const [loginDisabled, setLoginDisabled] = useState(initialDisabled);
   // const [members, setMembers] = useState(initialMembers);
 
-      const [ potluckInfo, setPotluckInfo ] = useState([])
-    console.log(potluckInfo, "Do We Have Potluck INfo here .........??????")
+  const [potluckInfo, setPotluckInfo] = useState([]);
+  console.log(potluckInfo, "Do We Have Potluck INfo here .........??????");
 
-    useEffect(() => {
-        axiosWithAuth()
-        .get("/api/potlucks")
-        .then(res => {
-            console.log(res, " APP res data potluckInfo.........")
-            setPotluckInfo(res.data)
-        })
-        .catch(error => {
-            console.log(error, " APP error.........")
-        })
-
-    }, [])
+  useEffect(() => {
+    axiosWithAuth()
+      .get("/potlucks")
+      .then((res) => {
+        console.log(res, " APP res data potluckInfo.........");
+        setPotluckInfo(res.data);
+      })
+      .catch((error) => {
+        console.log(error, " APP error.........");
+      });
+  }, []);
 
   // let history = useHistory();
 
@@ -122,83 +110,82 @@ function App(props) {
   //     })
   // };
 
-  const submitSignupInfo = e => {
+  const submitSignupInfo = (e) => {
     e.preventDefault();
     axiosWithAuth()
-    .post("/api/auth/register", signup)
-    .then(res => {
-      console.log(res, "postSignup Res ()()()()()()()()")
-      // localStorage.setItem("token", res.data.authToken)
-      props.history.push("/login")
-    })
-    .catch(error => {
-      console.log(error, "postSignup error ()()()()()()()()")
-    }) 
-  }
+      .post("/auth/register", signup)
+      .then((res) => {
+        console.log(res, "postSignup Res ()()()()()()()()");
+        // localStorage.setItem("token", res.data.authToken)
+        props.history.push("/login");
+      })
+      .catch((error) => {
+        console.log(error, "postSignup error ()()()()()()()()");
+      });
+  };
 
-  const submitLoginInfo = e => {
+  const submitLoginInfo = (e) => {
     e.preventDefault();
     axiosWithAuth()
-    .post("/api/auth/login", login)
-    .then(res => {
-      console.log(res, "postLogin res ()()()()()()()")
-      localStorage.setItem("token", res.data.authToken)
-     window.location.assign("/potluckPage")
-    })
-    .catch(error => {
-      console.log(error.message, "postLogin Error ()()()()()()")
-    })
+      .post("/auth/login", login)
+      .then((res) => {
+        console.log(res, "postLogin res ()()()()()()()");
+        localStorage.setItem("token", res.data.authToken);
+        window.location.assign("/potluckPage");
+      })
+      .catch((error) => {
+        console.log(error.message, "postLogin Error ()()()()()()");
+      });
     // setLogin(initialLoginValues)
-  }
+  };
 
-  const signupInputChange = (event) =>{
-    const {name, value} = event.target;
+  const signupInputChange = (event) => {
+    const { name, value } = event.target;
 
     yup
       .reach(signupSchema, name)
       .validate(value)
-      .then(response =>{
+      .then((response) => {
         setSignupErrors({
           ...signupErrors,
-          [name]: ''
+          [name]: "",
         });
       })
-      .catch(error =>{
+      .catch((error) => {
         setSignupErrors({
           ...signupErrors,
-          [name]: error.errors[0]
+          [name]: error.errors[0],
         });
       });
 
     setSignup({
       ...signup,
-      [name]: value
+      [name]: value,
     });
   };
 
+  const loginInputChange = (event) => {
+    const { name, value } = event.target;
 
-  const loginInputChange = (event) =>{
-    const {name, value} = event.target;
-    
     yup
       .reach(loginSchema, name)
       .validate(value)
-      .then(response =>{
+      .then((response) => {
         setLoginErrors({
           ...loginErrors,
-          [name]: ''
+          [name]: "",
         });
       })
-      .catch(error =>{
+      .catch((error) => {
         setLoginErrors({
           ...loginErrors,
-          [name]: error.errors[0]
+          [name]: error.errors[0],
         });
       });
 
     setLogin({
       ...login,
-      [name]: value
+      [name]: value,
     });
   };
 
@@ -227,71 +214,168 @@ function App(props) {
   //   getMembers(member);
   // };
 
-  useEffect(() =>{
-    signupSchema.isValid(signup).then(valid =>{
-      setSignupDisabled(!valid)
+  useEffect(() => {
+    signupSchema.isValid(signup).then((valid) => {
+      setSignupDisabled(!valid);
     });
   }, [signup]);
 
-  useEffect(() =>{
-    loginSchema.isValid(login).then(valid =>{
-      setLoginDisabled(!valid)
+  useEffect(() => {
+    loginSchema.isValid(login).then((valid) => {
+      setLoginDisabled(!valid);
     });
   }, [login]);
 
   return (
-  
+    <Router>
       <div className="App">
-        <header className="App-header">
-            <h1> Potlucky Potluck Planner</h1>
+        <header
+          className="App-header"
+          style={{ display: "flex", flexDirection: "row" }}
+        >
+          <img
+            src="https://images.unsplash.com/photo-1571559932711-cb498a7a1ce1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
+            alt="crockpot logo"
+          />
+          <h1 style={{ fontSize: "5rem" }}> Potlucky Potluck Planner</h1>
         </header>
-        <Navigator>
-          <LinkContainer><Link to="/potluckPage" style={{textDecoration: "none", color: "black"}} >Go To Potluck Page</Link></LinkContainer>
-          <LinkContainer><Link to="/login" style={{textDecoration: "none", color: "black"}}>Login</Link></LinkContainer>
-          <LinkContainer><Link to="/register" style={{textDecoration: "none", color: "black"}}>Register</Link></LinkContainer>
-          <LinkContainer ><a href="https://objective-gates-8326a1.netlify.app/index.html" style={{textDecoration: "none", color: "black"}}> Home </a> </LinkContainer>
-           
-        </Navigator>
+        <nav className="nav-landing2">
+          <a
+            className="b1 aTag"
+            href="/"
+            style={{ textDecoration: "none", color: "black" }}
+          >
+            Home
+          </a>
+
+          <a
+            className="b2 aTag"
+            href="/login"
+            style={{ textDecoration: "none", color: "black" }}
+          >
+            Login
+          </a>
+
+          <a
+            className="b3 aTag"
+            href="/register"
+            style={{ textDecoration: "none", color: "black" }}
+          >
+            Register
+          </a>
+          <a
+            className="b4 aTag"
+            href="/potluckPage"
+            style={{ textDecoration: "none", color: "black" }}
+          >
+            Go To Potluck Page
+          </a>
+
+          <a
+            className="b1 aTag"
+            href="/aboutUs"
+            style={{ textDecoration: "none", color: "black" }}
+          >
+            About Us
+          </a>
+
+          <a
+            className="b2 aTag"
+            href="/successStories"
+            style={{ textDecoration: "none", color: "black" }}
+          >
+            Success Stories
+          </a>
+
+          <a
+            className="b3 aTag"
+            href="/stories"
+            style={{ textDecoration: "none", color: "black" }}
+          >
+            Stories
+          </a>
+
+          <a
+            className="b4 aTag"
+            href="/howItWorks"
+            style={{ textDecoration: "none", color: "black" }}
+          >
+            How It Works
+          </a>
+        </nav>
 
         <Switch>
-          <Route exact path="/login"> <Login  values={login}
-                                              onInputChange={loginInputChange}
-                                              // onSubmit={loginSubmit}
-                                              disabled={loginDisabled}
-                                              errors={loginErrors}
-                                              submitLoginInfo={submitLoginInfo}
-                                              {...props}/> </Route>
+          <div>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/howItWorks" component={HowItWorks} />
+            <Route exact path="/stories" component={Stories} />
+            <Route exact path="/aboutUs" component={AboutUs} />
+            <Route exact path="/successStories" component={SuccessStories} />
+            <Route exact path="/login">
+              <Login
+                values={login}
+                onInputChange={loginInputChange}
+                disabled={loginDisabled}
+                errors={loginErrors}
+                submitLoginInfo={submitLoginInfo}
+                {...props}
+              />
+            </Route>
+            <Route exact path="/register">
+              <Signup
+                values={signup}
+                onInputChange={signupInputChange}
+                disabled={signupDisabled}
+                errors={signupErrors}
+                submitSignupInfo={submitSignupInfo}
+              />
+            </Route>
 
-          <Route exact path="/register"><Signup values={signup}
-                                              onInputChange={signupInputChange}
-                                              // onSubmit={signupSubmit}
-                                              disabled={signupDisabled}
-                                              errors={signupErrors}
-                                              submitSignupInfo= {submitSignupInfo}/></Route>
+            <Route exact path="/potluckForm" component={CreatePotluckForm} />
+            <Route exact path="/itemForm" component={AddItemForm} />
+            <Route exact path="/guestForm" component={AddGuestForm} />
+            <Route
+              exact
+              path="/potluckPage"
+              render={() => <PotluckPage potluckInfo={potluckInfo} />}
+            />
 
-          <PrivateRoute exact path="/potluckForm" component={CreatePotluckForm}/>
-          <PrivateRoute exact path="/itemForm" component={AddItemForm}/>
-          <PrivateRoute exact path="/guestForm" component={AddGuestForm}/>
-          <PrivateRoute exact path="/potluckPage"><PotluckPage potluckInfo={potluckInfo}/> </PrivateRoute>
-          <Route  exact path="/potluckPage/updateForm/:id" render={props => <UpdatePotluckForm {...props} setPotluckInfo={setPotluckInfo}/>} />
-          {/* <PrivateRoute exact path="/potluckPage/updateForm/:id"> <UpdatePotluckForm setPotluckInfo={setPotluckInfo} /></PrivateRoute> */}
-          <Route  exact Path="/potluckPage/:id"  render={props => <Potluck {...props} potluckInfo={potluckInfo} setPotluckInfo={setPotluckInfo}/>} /> 
-          {/* <PrivateRoute exact Path="/potluckPage/:id"><Potluck {...props} potluckInfo={potluckInfo} setPotluckInfo={setPotluckInfo}/> </PrivateRoute> */}
+            <Route
+              exact
+              path="/potluckPage/updateForm/:id"
+              render={(props) => (
+                <UpdatePotluckForm {...props} setPotluckInfo={setPotluckInfo} />
+              )}
+            />
+            {/* <PrivateRoute exact path="/potluckPage/updateForm/:id"> <UpdatePotluckForm setPotluckInfo={setPotluckInfo} /></PrivateRoute> */}
+            <Route
+              exact
+              Path="/potluckPage/:id"
+              render={(props) => (
+                <Potluck
+                  {...props}
+                  potluckInfo={potluckInfo}
+                  setPotluckInfo={setPotluckInfo}
+                />
+              )}
+            />
+            {/* <PrivateRoute exact Path="/potluckPage/:id"><Potluck {...props} potluckInfo={potluckInfo} setPotluckInfo={setPotluckInfo}/> </PrivateRoute> */}
+          </div>
         </Switch>
-      </div>      
-    
-
+      </div>
+    </Router>
   );
 }
 
 export default App;
 
-
-{/* <PrivateRoute exact path="/potluckPage" 
+{
+  /* <PrivateRoute exact path="/potluckPage" 
 render ={() => <PotluckPage {...props} potluckInfo={potluckInfo} setPotluckInfo={setPotluckInfo}/>}/>
 
 <PrivateRoute exact path="/potluckPage/updateForm/:id" 
     render={props => <UpdatePotluckForm setPotluckInfo={setPotluckInfo}/>}/>
 
 <PrivateRoute exact Path="/potluckPage/:id" 
-    render={() =><Potluck {...props} potluckInfo={potluckInfo} setPotluckInfo={setPotluckInfo}/>}/> */}
+    render={() =><Potluck {...props} potluckInfo={potluckInfo} setPotluckInfo={setPotluckInfo}/>}/> */
+}
