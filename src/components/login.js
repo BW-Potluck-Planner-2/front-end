@@ -37,7 +37,9 @@ const Login = (props) =>{
                     />
                 </label>
                 <div className='bttn'>
+                    {/* <Link to="/potluckPage">  */}
                     <button disabled={disabled} className='submit'>Submit</button>
+                    {/* </Link> */}
                     <Link to='/register'><button>Need to Sign Up?</button></Link>
                 </div>
             </form>

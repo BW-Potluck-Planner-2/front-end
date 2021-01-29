@@ -1,15 +1,20 @@
 import React, { useState } from "react";
 import { axiosWithAuth } from "../utils/axiosWithAuth"
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import styled from "styled-components"
 
 import AddItemCard from "./AddItemCard"
 
 const ItemFormContainer = styled.div`
-border: 1px solid gray;
-width: 70%;
-margin: 2rem auto;
-height: auto;
+padding:2rem;
+ width: 70%;
+ height: 100%;
+ margin: 2rem auto;
+ display: flex;
+ flex-direction: column;
+ border: 1px solid gray;
+ background: #FFB6C1;
+ box-shadow: 0 0 15px 20px #FFC0CB;
 `
 const ItemCard = styled.div`
 margin: 2rem;
@@ -19,14 +24,40 @@ margin: 2rem;
 display: flex;
 justify-content: space-around;
 `
+const LinkContainer = styled.div`
+  margin: 1rem auto;
+  padding: 2px 10px;
+  background-color: #CBE2B0;
+  border: 1px dashed black;
+  border-radius: 12px;
+  &:hover{
+      background: green;
+      box-shadow: 0 0 5px 2px green;
+   }
+`
+const Button = styled.button`
+width: 200px;
+margin: 1rem auto;
+border-radius:1rem;
+background: #CBE2B0;
+&:hover{
+      background: #CBE2B0;
+      box-shadow: 0 0 5px 2px green;
+   }
+`
+
 const initialFoodItems = {
+    potluckId: Date.now(),
+    foodCategory: "",
     foodDescription: "",
-    serving: "",
+    servings: "",
 }
 
 const AddItemForm = (props) => {
+
+    const {id} = useParams();
     const [ foodItems, setFoodItems ] = useState(initialFoodItems);
-console.log(foodItems, "foodItem data ! ! ! ! ! ! ! !")
+    console.log(foodItems, "foodItem data ! ! ! ! ! ! ! !")
 
     const handleChange = e => {
         setFoodItems({
@@ -37,29 +68,46 @@ console.log(foodItems, "foodItem data ! ! ! ! ! ! ! !")
 
     const handleSubmit = e => {
         const newFoodItems = {
+            "potluckId": Date.now(),
+            "foodCategory": foodItems.foodCategory,
             "foodDescription": foodItems.foodDescription,
-            "serving": foodItems.serving,
+            "servings": foodItems.servings,
         }
 
         e.preventDefault();
         axiosWithAuth()
-        .post("/api/food", newFoodItems)
+        .post(`/api/potlucks/reqs/${id}`, newFoodItems)
         .then(res => {
             console.log(res, "Add Food Item Data...../// / / / ? ? ? ")
-            // props.history.push("/potluckPage")
-            
+            setFoodItems(initialFoodItems)           
         })
         .catch(error => {
-            console.log(error, "food Item posting Error// / / / ? ? ? ")
+            console.log(error.message, "food Item posting Error// / / / ? ? ? ")
         })
-        setFoodItems("")
+        
     }
 
     return (
         <ItemFormContainer> 
             <form onSubmit={handleSubmit}>
                 <label>
-                    <input placeholder="Name of Food"
+                    <input placeholder="Potluck ID"
+                        type="number"
+                        name="potluckId"
+                        value={foodItems.potluckId}
+                        onChange={handleChange}
+                    />                    
+                </label>
+                <label>
+                    <input placeholder="Food Category"
+                        type="text"
+                        name="foodCategory"
+                        value={foodItems.foodCategory}
+                        onChange={handleChange}
+                    />                    
+                </label>
+                <label>
+                    <input placeholder="Food Description"
                         type="text"
                         name="foodDescription"
                         value={foodItems.foodDescription}
@@ -70,22 +118,29 @@ console.log(foodItems, "foodItem data ! ! ! ! ! ! ! !")
                 <label>
                     <input placeholder="Servings"
                         type="number"
-                        name="serving"
-                        value={foodItems.serving}
+                        name="servings"
+                        value={foodItems.servings}
                         onChange={handleChange}
                     />                    
                 </label>
-                <button> Add Food</button>
+                <Button> Add Food</Button>
             </form>
-
-            <ItemCard>
+            <div>
                 <AddItemCard/>
-                <Link to="/guestForm">Now, Please add Guests</Link>    
-            </ItemCard>
+                <LinkContainer>
+                    <Link to="/guestForm" style={{textDecoration: "none", color: "black"}}>
+                        Now, Please Add Guest</Link>                
+                </LinkContainer>               
+            </div>
             <LinkBag>
-                <Link to="/potluckForm">Go To Potluck Form</Link>
-                <Link to="/potluckPage">Go To Potluck Page</Link>
+                <LinkContainer>
+                    <Link to="/potluckForm" style={{textDecoration: "none", color: "black"}}>Go To Potluck Form</Link>
+                </LinkContainer>
+                <LinkContainer> 
+                    <Link to="/potluckPage" style={{textDecoration: "none", color: "black"}}>Go To Potluck Page</Link>
+                </LinkContainer>            
             </LinkBag>
+
         </ItemFormContainer>
     )
 }

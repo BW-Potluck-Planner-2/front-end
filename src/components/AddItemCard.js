@@ -27,9 +27,12 @@ useEffect(() => {
                 <div>Food Items
                     {items.map((item) => {
                         return (
-                            <ul>
-                                <li>{item.foodName}</li>
-                            </ul>
+                            <div>
+                                <p>PotluckId: {item.potluckId}</p>
+                                <p>Food Category: {item.foodCategory}</p>
+                                <p>Food Description:{item.foodDescription}</p>
+                                <p>Servings: {item.servings} </p>
+                            </div>
                             
                         )
                     })}

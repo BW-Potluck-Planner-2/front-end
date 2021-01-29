@@ -1,5 +1,8 @@
 import React, {useState,  useEffect} from "react";
 import styled from "styled-components"
+import {Link} from "react-router-dom"
+import { useHistory } from "react-router-dom"
+// import Potluck from './Potluck'
 
 import { axiosWithAuth } from "../utils/axiosWithAuth"
 // import CreatePotluckForm from "./CreatePotluckForm"
@@ -8,9 +11,14 @@ const PotluckContainer = styled.div`
 border: 1px solid gray;
 width : 70%;
 margin: 1rem auto;
+font-family:'Architects Daughter', cursive;
 `
 
 const CreatePotluckCard = (props) => {
+    console.log(props, "WWWWWWWWWWWWWWW")
+
+    const history = useHistory();
+
     const [ potluckInfo, setPotluckInfo ] = useState([])
     console.log(potluckInfo, "Do We Have Potluck INfo here .........??????")
 
@@ -27,33 +35,31 @@ const CreatePotluckCard = (props) => {
 
     }, [])
 
-    // const deletePotluck = potluck => {
-    //     axiosWithAuth()
-    //     .delete(`/api/potlucks/${potluck.id}`)
-    //     .then(res => {
-    //         console.log(res, "delete RES.............")
-    //         setPotluckInfo(potluckInfo.filter((potluckPot) => potluckPot.id !== potluck.id))
-    //     })
-    //     .catch(error =>{
-    //         console.log(error, "delete ERROR.............")
-    //     })
-    // }
-
+    function routeToItem(e, potluck) {
+        e.preventDefault();
+        history.push(`/potluckPage/${potluck.id}`);
+      }
 
     return (
         <div>
             {/* <CreatePotluckForm/> */}
+
                 <div>Potluck
                     {potluckInfo.map((potluck) => {
                         return (
                             <PotluckContainer key={potluck.id}>
-                                <h3>Potluck Name: {potluck.locationName} </h3>
-                                <p>Block Number: {potluck.locationAddress} </p>
-                                <p>Street: {potluck.locationStreet} </p>
-                                <p>City: {potluck.locationCity} </p>
-                                <p>State: {potluck.locationState} </p>
-                                <p>Postal Code: {potluck.locationPostcode} </p>
-                                <p>Country: {potluck.locationCountry} </p>
+                                {/* <Link to={`/potluckPage/${potluck.id}`}> */}
+                                <div onClick={ev => routeToItem(ev, potluck)} key={potluck.id}>
+                                    <h3>Potluck Name: {potluck.locationName} </h3>
+                                    <p>Block Number: {potluck.locationAddress} </p>
+                                    <p>Street: {potluck.locationStreet} </p>
+                                    <p>City: {potluck.locationCity} </p>
+                                    <p>State: {potluck.locationState} </p>
+                                    <p>Postal Code: {potluck.locationPostcode} </p>
+                                    <p>Country: {potluck.locationCountry} </p>
+                                    </div>
+                                {/* </Link> */}
+                               
                             </PotluckContainer>
                         )})
                     }
@@ -61,6 +67,7 @@ const CreatePotluckCard = (props) => {
                     <AddGuestCard/>  */}
                     {/* <button onClick={deletePotluck}>Delete potluck</button> */}
                 </div>
+
         </div>
     )
 }

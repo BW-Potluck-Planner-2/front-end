@@ -6,10 +6,15 @@ import styled from "styled-components"
 import AddGuestCard from "./AddGuestCard"
 
 const GuestFormContainer = styled.div`
-border: 1px solid gray;
-width: 70%;
-margin: 2rem auto;
-height: auto;
+padding:2rem;
+ width: 70%;
+ height: 100%;
+ margin: 2rem auto;
+ display: flex;
+ flex-direction: column;
+ border: 1px solid gray;
+ background: #FFB6C1;
+ box-shadow: 0 0 15px 20px #FFC0CB;
 `
 const GuestCard = styled.div`
 margin: 2rem;
@@ -19,7 +24,30 @@ margin: 2rem;
 display: flex;
 justify-content: space-around;
 `
+const LinkContainer = styled.div`
+  margin: 1rem auto;
+  padding: 2px 10px;
+  background-color: #CBE2B0;
+  border: 1px dashed black;
+  border-radius: 12px;
+  &:hover{
+      background: green;
+      box-shadow: 0 0 5px 2px green;
+   }
+`
+const Button = styled.button`
+width: 200px;
+margin: 1rem auto;
+border-radius:1rem;
+background: #CBE2B0;
+&:hover{
+      background: #CBE2B0;
+      box-shadow: 0 0 5px 2px green;
+   }
+`
+
 const initialGestInfo = {
+    potluckId: Date.now(),
     role: "",
     email: "",
 }
@@ -38,9 +66,9 @@ console.log(addGuest, "addGuestForm data /////////////////")
 
     const GuestHandleSubmit = e => {
         const newGuestInfo = {
-            "potluckId": Date.now(),
-            "role": addGuest.role,
-            "email": addGuest.email,
+            potluckId: Date.now(),
+            role: addGuest.role,
+            email: addGuest.email,
         }
 
         e.preventDefault();
@@ -52,12 +80,20 @@ console.log(addGuest, "addGuestForm data /////////////////")
         .catch(error => {
             console.log(error, "GuestForm Error//////////////")
         })
-        setAddGuest("")
+        setAddGuest(initialGestInfo)
     }
 
     return (
         <GuestFormContainer> 
             <form onSubmit={GuestHandleSubmit}>
+                <label>Potluck ID
+                    <input 
+                        type="number"
+                        name="potluckId"
+                        value={addGuest.potluckId}
+                        onChange={GuestHandleChange}
+                    />                    
+                </label>
                 <label>Role:  
                 <input 
                         type="text"
@@ -68,21 +104,27 @@ console.log(addGuest, "addGuestForm data /////////////////")
                 
                 <label>Email:  
                     <input 
-                        type="text"
+                        type="email"
                         name="email"
                         value={addGuest.email}
                         onChange={GuestHandleChange}
                     /> </label>
 
-                <button> Add Guest</button>
+                <Button> Add Guest</Button>
             </form>
             <GuestCard>
                 <AddGuestCard/>
-                <Link to="/potluckPage">Back To Potluck Page</Link>                
+                <LinkContainer>
+                    <Link to="/potluckPage">Back To Potluck Page</Link>                
+                </LinkContainer>
             </GuestCard>
             <LinkBag>
-            <Link to="/potluckForm">Go To Potluck Form</Link>
-            <Link to="/itemForm">Go To Add Item Form</Link>
+                <LinkContainer>
+                    <Link to="/potluckForm">Go To Potluck Form</Link>
+                </LinkContainer>
+                <LinkContainer>
+                    <Link to="/itemForm">Go To Add Item Form</Link>
+                </LinkContainer>
             </LinkBag>
         </GuestFormContainer>
     )
