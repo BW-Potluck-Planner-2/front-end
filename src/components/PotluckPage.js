@@ -35,25 +35,25 @@ const Nav = styled.nav`
 `;
 
 const PotluckPage = (props) => {
-  console.log(props, " Props PotluckPage  ..........");
+  //   console.log(props, " Props PotluckPage  ..........");
 
-  //   const [potluckInfo, setPotluckInfo] = useState([]);
-  //   console.log(
-  //     potluckInfo,
-  //     " PotluckINfo here in PotluckPage X x X x X ................."
-  //   );
+  const [potluckInfo, setPotluckInfo] = useState([]);
+  console.log(
+    potluckInfo,
+    " PotluckINfo here in PotluckPage X x X x X ................."
+  );
 
-  //   useEffect(() => {
-  //     axiosWithAuth()
-  //       .get("/potlucks")
-  //       .then((res) => {
-  //         console.log(res, " PotluckPage res data .........");
-  //         setPotluckInfo(res.data);
-  //       })
-  //       .catch((error) => {
-  //         console.log(error, " APP error.........");
-  //       });
-  //   }, []);
+  useEffect(() => {
+    axiosWithAuth()
+      .get("/potlucks")
+      .then((res) => {
+        console.log(res, " PotluckPage res data .........");
+        setPotluckInfo(res.data);
+      })
+      .catch((error) => {
+        console.log(error, " APP error.........");
+      });
+  }, []);
 
   return (
     <PotluckPageContainer>
@@ -66,7 +66,7 @@ const PotluckPage = (props) => {
         </Link>
       </Nav>
       <PageContainer>
-        <CreatePotluckCard potluckInfo={props.potluckInfo} />
+        <CreatePotluckCard potluckInfo={potluckInfo} />
 
         <AddItemCard />
         <AddGuestCard />

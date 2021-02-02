@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-import CreatePotluckCard from "./CreatePotluckCard";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 
 const FormContainer = styled.div`
@@ -64,7 +63,7 @@ const initialPotluckInfo = {
 const CreatePotluckForm = (props) => {
   console.log(props, "PpPpPpRrRrRrOoOoOoPpPpPpSsSsSs");
   const [newPotLuckInfo, setNewPotLuckInfo] = useState(initialPotluckInfo);
-  console.log(newPotLuckInfo, " O o o o o O O O O o o o o");
+  // console.log(newPotLuckInfo, " O o o o o O O O O o o o o");
 
   const handleChange = (e) => {
     setNewPotLuckInfo({
@@ -166,7 +165,6 @@ const CreatePotluckForm = (props) => {
         <Button>Submit</Button>
       </Form>
       <div>
-        <CreatePotluckCard />
         <LinkContainer>
           <Link
             to="/itemForm"

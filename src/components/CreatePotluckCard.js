@@ -15,34 +15,9 @@ const PotluckContainer = styled.div`
 `;
 
 const CreatePotluckCard = (props) => {
-  console.log(props, "WWWWWWWWWWWWWWW");
+  console.log(props.potluckInfo, "WWWWWWWWWWWWWWW");
 
   const history = useHistory();
-
-  // const [potluckInfo, setPotluckInfo] = useState([]);
-  // console.log(potluckInfo, "Do We Have Potluck INfo here .........??????");
-
-  // useEffect(() => {
-  //   axiosWithAuth()
-  //     .get("/potlucks")
-  //     .then((res) => {
-  //       console.log(res, " We have res data potluck Info.........");
-
-  //       var potluckResults = [];
-
-  //       res.data.map((potResult) => {
-  //         potResult.push(potluckResults);
-  //         if (res.data) {
-  //           setPotluckInfo(potluckResults);
-  //         } else {
-  //           setPotluckInfo([]);
-  //         }
-  //       });
-  //     })
-  //     .catch((error) => {
-  //       console.log(error, " ? / ? not getting POTLUCK INFO.........");
-  //     });
-  // }, []);
 
   function routeToItem(e, potluck) {
     e.preventDefault();
@@ -51,7 +26,7 @@ const CreatePotluckCard = (props) => {
 
   return (
     <div>
-      <CreatePotluckForm />
+      <h1 style={{ fontSize: "20px" }}> Hello Hello </h1>
 
       <div>
         Potluck
@@ -59,14 +34,12 @@ const CreatePotluckCard = (props) => {
           console.log(potluck, "{{{{{{{==========}}}}}}}");
           return (
             <PotluckContainer key={potluck.id}>
-              {/* <Link to={`/potluckPage/${potluck.id}`}> */}
               <div onClick={(ev) => routeToItem(ev, potluck)} key={potluck.id}>
                 <h4>{potluck.name} </h4>
                 <p>Location: {potluck.location} </p>
                 <p>Date: {potluck.date} </p>
                 <p>Time: {potluck.time} </p>
               </div>
-              {/* </Link> */}
             </PotluckContainer>
           );
         })}
@@ -78,3 +51,28 @@ const CreatePotluckCard = (props) => {
   );
 };
 export default CreatePotluckCard;
+
+// const [potluckInfo, setPotluckInfo] = useState([]);
+// console.log(potluckInfo, "Do We Have Potluck INfo here .........??????");
+
+// useEffect(() => {
+//   axiosWithAuth()
+//     .get("/potlucks")
+//     .then((res) => {
+//       console.log(res, " We have res data potluck Info.........");
+
+//       var potluckResults = [];
+
+//       res.data.map((potResult) => {
+//         potResult.push(potluckResults);
+//         if (res.data) {
+//           setPotluckInfo(potluckResults);
+//         } else {
+//           setPotluckInfo([]);
+//         }
+//       });
+//     })
+//     .catch((error) => {
+//       console.log(error, " ? / ? not getting POTLUCK INFO.........");
+//     });
+// }, []);

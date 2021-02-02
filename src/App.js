@@ -342,16 +342,8 @@ function App(props) {
           <Route exact path="/potluckForm" component={CreatePotluckForm} />
           <Route exact path="/itemForm" component={AddItemForm} />
           <Route exact path="/guestForm" component={AddGuestForm} />
-          <Route
-            exact
-            path="/potluckPage"
-            render={() => (
-              <PotluckPage
-                potluckInfo={potluckInfo}
-                setPotluckInfo={setPotluckInfo}
-              />
-            )}
-          />
+
+          <Route exact path="/potluckPage" render={() => <PotluckPage />} />
 
           <Route
             exact
