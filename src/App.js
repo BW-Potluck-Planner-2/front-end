@@ -305,13 +305,15 @@ function App(props) {
         </nav>
 
         <Switch>
-          <div>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/howItWorks" component={HowItWorks} />
-            <Route exact path="/stories" component={Stories} />
-            <Route exact path="/aboutUs" component={AboutUs} />
-            <Route exact path="/successStories" component={SuccessStories} />
-            <Route exact path="/login">
+          <Route exact path="/" component={Home} />
+          <Route exact path="/howItWorks" component={HowItWorks} />
+          <Route exact path="/stories" component={Stories} />
+          <Route exact path="/aboutUs" component={AboutUs} />
+          <Route exact path="/successStories" component={SuccessStories} />
+          <Route
+            exact
+            path="/login"
+            render={() => (
               <Login
                 values={login}
                 onInputChange={loginInputChange}
@@ -320,8 +322,13 @@ function App(props) {
                 submitLoginInfo={submitLoginInfo}
                 {...props}
               />
-            </Route>
-            <Route exact path="/register">
+            )}
+          />
+
+          <Route
+            exact
+            path="/register"
+            render={() => (
               <Signup
                 values={signup}
                 onInputChange={signupInputChange}
@@ -329,38 +336,40 @@ function App(props) {
                 errors={signupErrors}
                 submitSignupInfo={submitSignupInfo}
               />
-            </Route>
+            )}
+          />
 
-            <Route exact path="/potluckForm" component={CreatePotluckForm} />
-            <Route exact path="/itemForm" component={AddItemForm} />
-            <Route exact path="/guestForm" component={AddGuestForm} />
-            <Route
-              exact
-              path="/potluckPage"
-              render={() => <PotluckPage potluckInfo={potluckInfo} />}
-            />
+          <Route exact path="/potluckForm" component={CreatePotluckForm} />
+          <Route exact path="/itemForm" component={AddItemForm} />
+          <Route exact path="/guestForm" component={AddGuestForm} />
+          <Route
+            exact
+            path="/potluckPage"
+            render={() => (
+              <PotluckPage
+                potluckInfo={potluckInfo}
+                setPotluckInfo={setPotluckInfo}
+              />
+            )}
+          />
 
-            <Route
-              exact
-              path="/potluckPage/updateForm/:id"
-              render={(props) => (
-                <UpdatePotluckForm {...props} setPotluckInfo={setPotluckInfo} />
-              )}
-            />
-            {/* <PrivateRoute exact path="/potluckPage/updateForm/:id"> <UpdatePotluckForm setPotluckInfo={setPotluckInfo} /></PrivateRoute> */}
-            <Route
-              exact
-              Path="/potluckPage/:id"
-              render={(props) => (
-                <Potluck
-                  {...props}
-                  potluckInfo={potluckInfo}
-                  setPotluckInfo={setPotluckInfo}
-                />
-              )}
-            />
-            {/* <PrivateRoute exact Path="/potluckPage/:id"><Potluck {...props} potluckInfo={potluckInfo} setPotluckInfo={setPotluckInfo}/> </PrivateRoute> */}
-          </div>
+          <Route
+            exact
+            path="/potluckPage/updateForm/:id"
+            render={() => <UpdatePotluckForm setPotluckInfo={setPotluckInfo} />}
+          />
+          {/* <PrivateRoute exact path="/potluckPage/updateForm/:id"> <UpdatePotluckForm setPotluckInfo={setPotluckInfo} /></PrivateRoute> */}
+          <Route
+            exact
+            Path="/potluckPage/:id"
+            render={() => (
+              <Potluck
+                potluckInfo={potluckInfo}
+                setPotluckInfo={setPotluckInfo}
+              />
+            )}
+          />
+          {/* <PrivateRoute exact Path="/potluckPage/:id"><Potluck {...props} potluckInfo={potluckInfo} setPotluckInfo={setPotluckInfo}/> </PrivateRoute> */}
         </Switch>
       </div>
     </Router>

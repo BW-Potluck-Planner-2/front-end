@@ -2,16 +2,16 @@ import React from "react";
 
 import "./css/style.css";
 
-export default function Index() {
+export default function Home() {
   return (
     <div>
-      <div class="test">
+      <div className="test">
         <section id="hero-image">
           <div id="hero-text">
-            <p class="potluck-text-one">
+            <p className="potluck-text-one">
               So, you got stuck planning the potluck?
             </p>
-            <p class="potluck-text-two">Well, you just got potlucky!</p>
+            <p className="potluck-text-two">Well, you just got potlucky!</p>
           </div>
         </section>
         <footer>
@@ -81,7 +81,6 @@ export default function Index() {
           </nav>
         </footer>
       </div>
-      ;
     </div>
   );
 }

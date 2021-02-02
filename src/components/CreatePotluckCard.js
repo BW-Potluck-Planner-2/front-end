@@ -42,7 +42,7 @@ const CreatePotluckCard = (props) => {
   //     .catch((error) => {
   //       console.log(error, " ? / ? not getting POTLUCK INFO.........");
   //     });
-  // }, [potluckInfo]);
+  // }, []);
 
   function routeToItem(e, potluck) {
     e.preventDefault();
